@@ -16,14 +16,14 @@ bopacorp-mobile     →  types API calls with inferred types
 
 ```
 DB Layer (backend only)  →  API Layer (this package)  →  UI Layer (each frontend)
-Prisma/internal              request + response            selection, loading, UI state
+Drizzle/internal             request + response            selection, loading, UI state
 ```
 
 This package only defines the **API layer**. Never expose DB internals. Never define UI state.
 
 | Belongs here | Does NOT belong here |
 |---|---|
-| `LoginRequestSchema` | Prisma model types |
+| `LoginRequestSchema` | Drizzle model types |
 | `UserResponseSchema` | `password_hash`, `deleted_at` |
 | `PaginationQuerySchema` | `isSelected`, `isLoading` |
 | Enums from SQL CHECK constraints | Database connection config |
