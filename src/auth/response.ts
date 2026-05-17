@@ -2,21 +2,9 @@ import { z } from 'zod';
 import { TimestampsSchema, UuidSchema } from '../common/primitives.js';
 import { PermissionTypeSchema } from './enums.js';
 
-// --- Profile (embedded in user responses) ---
+import { ProfileResponseSchema } from '../core/response.js';
 
-export const ProfileResponseSchema = z.object({
-  id: UuidSchema,
-  firstName: z.string(),
-  secondName: z.string().nullable(),
-  lastName: z.string(),
-  secondLastName: z.string().nullable(),
-  nationalId: z.string(),
-  phone: z.string().nullable(),
-  avatarUrl: z.string().nullable(),
-  employeeCode: z.string().nullable(),
-  address: z.string().nullable(),
-});
-export type ProfileResponse = z.infer<typeof ProfileResponseSchema>;
+export { ProfileResponseSchema, type ProfileResponse } from '../core/response.js';
 
 // --- Auth responses ---
 
