@@ -1,10 +1,6 @@
 import { z } from 'zod';
 import { TimestampsSchema, UuidSchema } from '../common/primitives.js';
 
-// ============================================================================
-// Lookup table responses (7 tables)
-// ============================================================================
-
 const lookupResponse = z
   .object({
     id: UuidSchema,
@@ -66,10 +62,6 @@ export type ContentTypeResponse = z.infer<typeof ContentTypeResponseSchema>;
 export const ContentTypeListItemResponseSchema = lookupListItemResponse;
 export type ContentTypeListItemResponse = z.infer<typeof ContentTypeListItemResponseSchema>;
 
-// ============================================================================
-// Categories (hierarchical)
-// ============================================================================
-
 export const CategoryResponseSchema = z
   .object({
     id: UuidSchema,
@@ -101,10 +93,6 @@ export const CategoryTreeResponseSchema: z.ZodType<CategoryTree> = CategoryRespo
   children: z.lazy(() => z.array(CategoryTreeResponseSchema)),
 });
 export type CategoryTreeResponse = z.infer<typeof CategoryTreeResponseSchema>;
-
-// ============================================================================
-// Detail table responses (1:1 with catalog_items)
-// ============================================================================
 
 export const VoiceDetailResponseSchema = z.object({
   id: UuidSchema,
@@ -151,10 +139,6 @@ export const DeviceDetailResponseSchema = z.object({
 });
 export type DeviceDetailResponse = z.infer<typeof DeviceDetailResponseSchema>;
 
-// ============================================================================
-// Item benefit response
-// ============================================================================
-
 export const ItemBenefitResponseSchema = z
   .object({
     id: UuidSchema,
@@ -165,10 +149,6 @@ export const ItemBenefitResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type ItemBenefitResponse = z.infer<typeof ItemBenefitResponseSchema>;
-
-// ============================================================================
-// Condition table responses
-// ============================================================================
 
 export const AgeConditionResponseSchema = z.object({
   id: UuidSchema,
@@ -190,10 +170,6 @@ export const TemporalConditionResponseSchema = z.object({
   expirationDate: z.string().nullable(),
 });
 export type TemporalConditionResponse = z.infer<typeof TemporalConditionResponseSchema>;
-
-// ============================================================================
-// Catalog items (core product)
-// ============================================================================
 
 const CatalogItemCategoryRefSchema = z.object({
   id: UuidSchema,
@@ -254,10 +230,6 @@ export const CatalogItemListItemResponseSchema = z
   .merge(TimestampsSchema);
 export type CatalogItemListItemResponse = z.infer<typeof CatalogItemListItemResponseSchema>;
 
-// ============================================================================
-// Content blocks (CMS)
-// ============================================================================
-
 export const ContentBlockResponseSchema = z
   .object({
     id: UuidSchema,
@@ -269,10 +241,6 @@ export const ContentBlockResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type ContentBlockResponse = z.infer<typeof ContentBlockResponseSchema>;
-
-// ============================================================================
-// Contact requests
-// ============================================================================
 
 export const ContactRequestResponseSchema = z.object({
   id: UuidSchema,

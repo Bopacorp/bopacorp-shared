@@ -53,7 +53,6 @@ export type {
 } from './request.js';
 
 export {
-  ProfileResponseSchema,
   AuthTokensResponseSchema,
   LoginResponseSchema,
   PermissionResponseSchema,
@@ -67,7 +66,6 @@ export {
 } from './response.js';
 
 export type {
-  ProfileResponse,
   AuthTokensResponse,
   LoginResponse,
   PermissionResponse,

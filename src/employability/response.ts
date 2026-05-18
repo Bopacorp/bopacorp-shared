@@ -2,8 +2,6 @@ import { z } from 'zod';
 import { TimestampsSchema, UuidSchema } from '../common/primitives.js';
 import { ApplicationStateSchema } from './enums.js';
 
-// --- Candidate ---
-
 export const CandidateResponseSchema = z
   .object({
     id: UuidSchema,
@@ -28,8 +26,6 @@ export const CandidateListItemResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type CandidateListItemResponse = z.infer<typeof CandidateListItemResponseSchema>;
-
-// --- Job vacancy ---
 
 const JobVacancyCreatorSchema = z.object({
   id: UuidSchema,
@@ -67,8 +63,6 @@ export const JobVacancyListItemResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type JobVacancyListItemResponse = z.infer<typeof JobVacancyListItemResponseSchema>;
-
-// --- Job application ---
 
 const ApplicationVacancySchema = z.object({
   id: UuidSchema,
@@ -118,20 +112,17 @@ export const JobApplicationListItemResponseSchema = z
   .merge(TimestampsSchema);
 export type JobApplicationListItemResponse = z.infer<typeof JobApplicationListItemResponseSchema>;
 
-// --- Candidate resume ---
-
-export const CandidateResumeResponseSchema = z.object({
-  id: UuidSchema,
-  candidateId: UuidSchema,
-  applicationId: UuidSchema.nullable(),
-  filename: z.string(),
-  fileExtension: z.string(),
-  fileSizeMb: z.number(),
-  storagePath: z.string(),
-  mimeType: z.string(),
-  uploadedAt: z.string().datetime(),
-  createdAt: z.string().datetime(),
-});
+export const CandidateResumeResponseSchema = z
+  .object({
+    id: UuidSchema,
+    candidateId: UuidSchema,
+    applicationId: UuidSchema.nullable(),
+    filename: z.string(),
+    fileExtension: z.string(),
+    fileSizeMb: z.number(),
+    downloadUrl: z.string().nullable(),
+    mimeType: z.string(),
+    uploadedAt: z.string().datetime(),
+  })
+  .merge(TimestampsSchema);
 export type CandidateResumeResponse = z.infer<typeof CandidateResumeResponseSchema>;
-
-

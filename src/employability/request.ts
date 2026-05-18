@@ -2,8 +2,6 @@ import { z } from 'zod';
 import { EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { ApplicationStateSchema } from './enums.js';
 
-// --- Candidate management ---
-
 export const CreateCandidateRequestSchema = z.object({
   nationalId: z.string().min(1).max(20),
   firstName: z.string().min(1).max(100),
@@ -21,8 +19,6 @@ export const ListCandidatesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
 });
 export type ListCandidatesQuery = z.infer<typeof ListCandidatesQuerySchema>;
-
-// --- Job vacancy management ---
 
 export const CreateJobVacancyRequestSchema = z.object({
   title: z.string().min(1).max(255),
@@ -45,8 +41,6 @@ export const ListJobVacanciesQuerySchema = PaginationQuerySchema.extend({
 });
 export type ListJobVacanciesQuery = z.infer<typeof ListJobVacanciesQuerySchema>;
 
-// --- Job application management ---
-
 export const CreateJobApplicationRequestSchema = z.object({
   vacancyId: UuidSchema,
   candidateId: UuidSchema,
@@ -67,8 +61,6 @@ export const ListJobApplicationsQuerySchema = PaginationQuerySchema.extend({
   reviewedBy: UuidSchema.optional(),
 });
 export type ListJobApplicationsQuery = z.infer<typeof ListJobApplicationsQuerySchema>;
-
-// --- Candidate resume management ---
 
 export const CreateCandidateResumeRequestSchema = z.object({
   candidateId: UuidSchema,

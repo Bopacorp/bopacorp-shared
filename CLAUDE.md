@@ -47,7 +47,7 @@ Source of truth: SQL models at `../bopacorp-api/models/`. Each `.sql` file maps 
 | SQL file | Shared module |
 |----------|---------------|
 | `01_auth_rbac.sql` | `src/auth/` (done) |
-| `02_profiles.sql` | embedded in `src/auth/` (done) |
+| `02_profiles.sql` | `src/core/` (done) |
 | `03_crm.sql` | `src/crm/` |
 | `04_catalog.sql` | `src/catalog/` |
 | `05_matrices.sql` | `src/matrices/` |

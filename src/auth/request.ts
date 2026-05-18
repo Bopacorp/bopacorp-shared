@@ -4,14 +4,10 @@ import { PermissionTypeSchema } from './enums.js';
 
 const PasswordSchema = z.string().min(8).max(128);
 
-// --- Route params ---
-
 export const IdParamSchema = z.object({
   id: UuidSchema,
 });
 export type IdParam = z.infer<typeof IdParamSchema>;
-
-// --- Auth operations ---
 
 export const LoginRequestSchema = z.object({
   email: EmailSchema,
@@ -41,8 +37,6 @@ export const ResetPasswordRequestSchema = z.object({
 });
 export type ResetPasswordRequest = z.infer<typeof ResetPasswordRequestSchema>;
 
-// --- Profile (nested in user creation/update) ---
-
 const CreateProfileSchema = z.object({
   firstName: z.string().min(1).max(100),
   secondName: z.string().max(100).optional(),
@@ -56,8 +50,6 @@ const CreateProfileSchema = z.object({
 });
 
 const UpdateProfileSchema = CreateProfileSchema.partial();
-
-// --- User management ---
 
 export const CreateUserRequestSchema = z.object({
   username: z.string().min(1).max(50),
@@ -87,8 +79,6 @@ export const ListUsersQuerySchema = PaginationQuerySchema.extend({
 });
 export type ListUsersQuery = z.infer<typeof ListUsersQuerySchema>;
 
-// --- Role management ---
-
 export const CreateRoleRequestSchema = z.object({
   name: z.string().min(1).max(100),
   slug: z.string().min(1).max(100),
@@ -114,8 +104,6 @@ export const AssignRolePermissionsRequestSchema = z.object({
 });
 export type AssignRolePermissionsRequest = z.infer<typeof AssignRolePermissionsRequestSchema>;
 
-// --- Module management ---
-
 export const CreateModuleRequestSchema = z.object({
   parentId: UuidSchema.optional(),
   name: z.string().min(1).max(100),
@@ -134,8 +122,6 @@ export const UpdateModuleRequestSchema = z.object({
   isActive: z.boolean().optional(),
 });
 export type UpdateModuleRequest = z.infer<typeof UpdateModuleRequestSchema>;
-
-// --- Permission management ---
 
 export const CreatePermissionRequestSchema = z.object({
   moduleId: UuidSchema,

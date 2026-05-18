@@ -1,10 +1,6 @@
 import { z } from 'zod';
 import { EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 
-// ============================================================================
-// Lookup tables — 7 tables with identical structure
-// ============================================================================
-
 const lookupCreate = z.object({
   code: z.string().min(1).max(30),
   name: z.string().min(1).max(100),
@@ -87,10 +83,6 @@ export type UpdateContentTypeRequest = z.infer<typeof UpdateContentTypeRequestSc
 export const ListContentTypesQuerySchema = lookupListQuery;
 export type ListContentTypesQuery = z.infer<typeof ListContentTypesQuerySchema>;
 
-// ============================================================================
-// Categories (hierarchical)
-// ============================================================================
-
 export const CreateCategoryRequestSchema = z.object({
   parentId: UuidSchema.optional(),
   name: z.string().min(1).max(100),
@@ -115,10 +107,6 @@ export const ListCategoriesQuerySchema = PaginationQuerySchema.extend({
   isActive: z.coerce.boolean().optional(),
 });
 export type ListCategoriesQuery = z.infer<typeof ListCategoriesQuerySchema>;
-
-// ============================================================================
-// Detail tables (1:1 with catalog_items) — create schemas
-// ============================================================================
 
 export const CreateVoiceDetailSchema = z.object({
   gigasStructural: z.number().int(),
@@ -155,20 +143,12 @@ export const CreateDeviceDetailSchema = z.object({
   financingMonthly: z.number().min(0).optional(),
 });
 
-// ============================================================================
-// Item benefits (M:1 with catalog_items)
-// ============================================================================
-
 export const CreateItemBenefitSchema = z.object({
   benefitTypeId: UuidSchema,
   name: z.string().min(1).max(100),
   description: z.string().max(255).optional(),
   durationDays: z.number().int().positive().optional(),
 });
-
-// ============================================================================
-// Condition tables (1:1 with catalog_items)
-// ============================================================================
 
 export const CreateAgeConditionSchema = z.object({
   minAge: z.number().int().min(0),
@@ -181,13 +161,9 @@ export const CreateLegalConditionSchema = z.object({
 });
 
 export const CreateTemporalConditionSchema = z.object({
-  effectiveDate: z.string(),
-  expirationDate: z.string().optional(),
+  effectiveDate: z.string().datetime(),
+  expirationDate: z.string().datetime().optional(),
 });
-
-// ============================================================================
-// Catalog items (core product)
-// ============================================================================
 
 export const CreateCatalogItemRequestSchema = z.object({
   categoryId: UuidSchema,
@@ -248,10 +224,6 @@ export const ListCatalogItemsQuerySchema = PaginationQuerySchema.extend({
 });
 export type ListCatalogItemsQuery = z.infer<typeof ListCatalogItemsQuerySchema>;
 
-// ============================================================================
-// Content blocks (CMS)
-// ============================================================================
-
 export const CreateContentBlockRequestSchema = z.object({
   contentKey: z.string().min(1).max(100),
   contentTypeId: UuidSchema,
@@ -275,10 +247,6 @@ export const ListContentBlocksQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
 });
 export type ListContentBlocksQuery = z.infer<typeof ListContentBlocksQuerySchema>;
-
-// ============================================================================
-// Contact requests (public inquiries)
-// ============================================================================
 
 export const CreateContactRequestSchema = z.object({
   itemId: UuidSchema.optional(),

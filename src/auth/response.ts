@@ -4,10 +4,6 @@ import { PermissionTypeSchema } from './enums.js';
 
 import { ProfileResponseSchema } from '../core/response.js';
 
-export { ProfileResponseSchema, type ProfileResponse } from '../core/response.js';
-
-// --- Auth responses ---
-
 export const AuthTokensResponseSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
@@ -28,8 +24,6 @@ export const LoginResponseSchema = z.object({
 });
 export type LoginResponse = z.infer<typeof LoginResponseSchema>;
 
-// --- Permission response ---
-
 export const PermissionResponseSchema = z
   .object({
     id: UuidSchema,
@@ -42,8 +36,6 @@ export const PermissionResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type PermissionResponse = z.infer<typeof PermissionResponseSchema>;
-
-// --- Role response ---
 
 export const RoleResponseSchema = z
   .object({
@@ -69,8 +61,6 @@ export const RoleDetailResponseSchema = RoleResponseSchema.extend({
 });
 export type RoleDetailResponse = z.infer<typeof RoleDetailResponseSchema>;
 
-// --- Module response ---
-
 export const ModuleResponseSchema = z
   .object({
     id: UuidSchema,
@@ -92,8 +82,6 @@ export const ModuleTreeResponseSchema: z.ZodType<ModuleTree> = ModuleResponseSch
   children: z.lazy(() => z.array(ModuleTreeResponseSchema)),
 });
 export type ModuleTreeResponse = z.infer<typeof ModuleTreeResponseSchema>;
-
-// --- User response ---
 
 export const UserResponseSchema = z
   .object({
@@ -133,8 +121,6 @@ export const UserListItemResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type UserListItemResponse = z.infer<typeof UserListItemResponseSchema>;
-
-// --- Message response ---
 
 export const MessageResponseSchema = z.object({
   message: z.string(),
