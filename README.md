@@ -13,7 +13,10 @@ Add `.npmrc` to your project root:
 
 ```
 @bopacorp:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
 ```
+
+Set `NPM_TOKEN` env var with a GitHub PAT (scopes: `read:packages`).
 
 Then:
 
@@ -41,6 +44,9 @@ import type { UserResponse } from '@bopacorp/shared/auth';
 | `@bopacorp/shared` | Everything (re-exports all modules) |
 | `@bopacorp/shared/common` | Primitives, pagination, API response wrappers |
 | `@bopacorp/shared/auth` | Auth, users, roles, permissions, modules |
+| `@bopacorp/shared/core` | Profiles, advisor-supervisor assignments |
+| `@bopacorp/shared/catalog` | Catalog items, categories, lookup tables, CMS, contacts |
+| `@bopacorp/shared/employability` | Candidates, job vacancies, applications, resumes |
 
 ## Development
 
