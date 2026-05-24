@@ -15,6 +15,7 @@ export type {
 export {
   IdParamSchema,
   LoginRequestSchema,
+  LogoutRequestSchema,
   RefreshTokenRequestSchema,
   ChangePasswordRequestSchema,
   ForgotPasswordRequestSchema,
@@ -35,6 +36,7 @@ export {
 export type {
   IdParam,
   LoginRequest,
+  LogoutRequest,
   RefreshTokenRequest,
   ChangePasswordRequest,
   ForgotPasswordRequest,

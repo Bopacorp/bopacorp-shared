@@ -2,7 +2,14 @@ import { z } from 'zod';
 import { EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { PermissionTypeSchema } from './enums.js';
 
-const PasswordSchema = z.string().min(8).max(128);
+const PasswordSchema = z
+  .string()
+  .min(8, 'Password must be at least 8 characters')
+  .max(128)
+  .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+  .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+  .regex(/[0-9]/, 'Password must contain at least one number')
+  .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character');
 
 // --- Route params ---
 
@@ -14,29 +21,34 @@ export type IdParam = z.infer<typeof IdParamSchema>;
 // --- Auth operations ---
 
 export const LoginRequestSchema = z.object({
-  email: EmailSchema,
-  password: z.string().min(1),
+  email: EmailSchema.transform((v) => v.toLowerCase().trim()),
+  password: z.string().min(1, 'Password is required'),
 });
 export type LoginRequest = z.infer<typeof LoginRequestSchema>;
 
+export const LogoutRequestSchema = z.object({
+  refreshToken: z.string().min(1, 'Refresh token is required'),
+});
+export type LogoutRequest = z.infer<typeof LogoutRequestSchema>;
+
 export const RefreshTokenRequestSchema = z.object({
-  refreshToken: z.string().min(1),
+  refreshToken: z.string().min(1, 'Refresh token is required'),
 });
 export type RefreshTokenRequest = z.infer<typeof RefreshTokenRequestSchema>;
 
 export const ChangePasswordRequestSchema = z.object({
-  currentPassword: z.string().min(1),
+  currentPassword: z.string().min(1, 'Current password is required'),
   newPassword: PasswordSchema,
 });
 export type ChangePasswordRequest = z.infer<typeof ChangePasswordRequestSchema>;
 
 export const ForgotPasswordRequestSchema = z.object({
-  email: EmailSchema,
+  email: EmailSchema.transform((v) => v.toLowerCase().trim()),
 });
 export type ForgotPasswordRequest = z.infer<typeof ForgotPasswordRequestSchema>;
 
 export const ResetPasswordRequestSchema = z.object({
-  token: z.string().min(1),
+  token: z.string().min(1, 'Token is required'),
   newPassword: PasswordSchema,
 });
 export type ResetPasswordRequest = z.infer<typeof ResetPasswordRequestSchema>;

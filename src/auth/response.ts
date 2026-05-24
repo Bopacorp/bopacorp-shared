@@ -22,7 +22,7 @@ export const LoginResponseSchema = z.object({
     email: z.string(),
     roles: z.array(z.string()),
     permissions: z.array(z.string()),
-    profile: ProfileResponseSchema,
+    profile: ProfileResponseSchema.nullable(),
   }),
   tokens: AuthTokensResponseSchema,
 });
