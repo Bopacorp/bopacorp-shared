@@ -270,6 +270,11 @@ export const ContentBlockResponseSchema = z
   .merge(TimestampsSchema);
 export type ContentBlockResponse = z.infer<typeof ContentBlockResponseSchema>;
 
+export const CmsLandingResponseSchema = z.object({
+  blocks: z.record(z.string(), ContentBlockResponseSchema),
+});
+export type CmsLandingResponse = z.infer<typeof CmsLandingResponseSchema>;
+
 // ============================================================================
 // Contact requests
 // ============================================================================

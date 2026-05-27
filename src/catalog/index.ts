@@ -109,6 +109,7 @@ export {
   CatalogItemResponseSchema,
   CatalogItemListItemResponseSchema,
   ContentBlockResponseSchema,
+  CmsLandingResponseSchema,
   ContactRequestResponseSchema,
 } from './response.js';
 
@@ -142,5 +143,6 @@ export type {
   CatalogItemResponse,
   CatalogItemListItemResponse,
   ContentBlockResponse,
+  CmsLandingResponse,
   ContactRequestResponse,
 } from './response.js';
