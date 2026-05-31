@@ -9,7 +9,6 @@ export const UpdateProfileRequestSchema = z.object({
   nationalId: z.string().min(1).max(20).optional(),
   phone: z.string().max(20).optional(),
   avatarUrl: z.string().url().max(500).optional(),
-  employeeCode: z.string().max(20).optional(),
   address: z.string().optional(),
 });
 export type UpdateProfileRequest = z.infer<typeof UpdateProfileRequestSchema>;

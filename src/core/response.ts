@@ -10,7 +10,6 @@ export const ProfileResponseSchema = z.object({
   nationalId: z.string(),
   phone: z.string().nullable(),
   avatarUrl: z.string().nullable(),
-  employeeCode: z.string().nullable(),
   address: z.string().nullable(),
 });
 export type ProfileResponse = z.infer<typeof ProfileResponseSchema>;

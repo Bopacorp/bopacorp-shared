@@ -126,7 +126,6 @@ export const UserListItemResponseSchema = z
         firstName: z.string(),
         lastName: z.string(),
         avatarUrl: z.string().nullable(),
-        employeeCode: z.string().nullable(),
       })
       .nullable(),
     roles: z.array(z.string()),
