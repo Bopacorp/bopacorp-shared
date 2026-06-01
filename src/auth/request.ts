@@ -165,3 +165,26 @@ export const UpdatePermissionRequestSchema = z.object({
   isActive: z.boolean().optional(),
 });
 export type UpdatePermissionRequest = z.infer<typeof UpdatePermissionRequestSchema>;
+
+// --- List queries ---
+
+export const ListRolesQuerySchema = PaginationQuerySchema.extend({
+  search: z.string().optional(),
+  isActive: z.coerce.boolean().optional(),
+});
+export type ListRolesQuery = z.infer<typeof ListRolesQuerySchema>;
+
+export const ListModulesQuerySchema = PaginationQuerySchema.extend({
+  search: z.string().optional(),
+  isActive: z.coerce.boolean().optional(),
+  parentId: UuidSchema.optional(),
+});
+export type ListModulesQuery = z.infer<typeof ListModulesQuerySchema>;
+
+export const ListPermissionsQuerySchema = PaginationQuerySchema.extend({
+  search: z.string().optional(),
+  isActive: z.coerce.boolean().optional(),
+  moduleId: UuidSchema.optional(),
+  type: PermissionTypeSchema.optional(),
+});
+export type ListPermissionsQuery = z.infer<typeof ListPermissionsQuerySchema>;

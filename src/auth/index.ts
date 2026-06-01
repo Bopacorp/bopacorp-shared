@@ -31,6 +31,9 @@ export {
   UpdateModuleRequestSchema,
   CreatePermissionRequestSchema,
   UpdatePermissionRequestSchema,
+  ListRolesQuerySchema,
+  ListModulesQuerySchema,
+  ListPermissionsQuerySchema,
 } from './request.js';
 
 export type {
@@ -52,6 +55,9 @@ export type {
   UpdateModuleRequest,
   CreatePermissionRequest,
   UpdatePermissionRequest,
+  ListRolesQuery,
+  ListModulesQuery,
+  ListPermissionsQuery,
 } from './request.js';
 
 export {
