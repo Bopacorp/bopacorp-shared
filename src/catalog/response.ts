@@ -258,11 +258,18 @@ export type CatalogItemListItemResponse = z.infer<typeof CatalogItemListItemResp
 // Content blocks (CMS)
 // ============================================================================
 
+const ContentTypeRefSchema = z.object({
+  id: UuidSchema,
+  code: z.string(),
+  name: z.string(),
+});
+
 export const ContentBlockResponseSchema = z
   .object({
     id: UuidSchema,
     contentKey: z.string(),
     contentTypeId: UuidSchema,
+    contentType: ContentTypeRefSchema.nullable(),
     title: z.string().nullable(),
     body: z.string().nullable(),
     sortOrder: z.number().int(),
