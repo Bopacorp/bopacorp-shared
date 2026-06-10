@@ -28,6 +28,15 @@ export const LoginResponseSchema = z.object({
 });
 export type LoginResponse = z.infer<typeof LoginResponseSchema>;
 
+export const MeResponseSchema = z.object({
+  id: UuidSchema,
+  username: z.string(),
+  email: z.string(),
+  roles: z.array(z.string()),
+  profile: ProfileResponseSchema.nullable(),
+});
+export type MeResponse = z.infer<typeof MeResponseSchema>;
+
 // --- Permission response ---
 
 export const PermissionResponseSchema = z

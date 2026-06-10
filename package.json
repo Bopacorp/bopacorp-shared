@@ -25,6 +25,10 @@
       "types": "./dist/employability/index.d.ts",
       "import": "./dist/employability/index.js"
     },
+    "./crm": {
+      "types": "./dist/crm/index.d.ts",
+      "import": "./dist/crm/index.js"
+    },
     "./catalog": {
       "types": "./dist/catalog/index.d.ts",
       "import": "./dist/catalog/index.js"
