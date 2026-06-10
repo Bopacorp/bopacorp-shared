@@ -6,3 +6,5 @@ export * from './documents/index.js';
 export * from './employability/index.js';
 export * from './catalog/index.js';
 export * from './matrices/index.js';
+export * from './notifications/index.js';
+export * from './reports/index.js';

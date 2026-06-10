@@ -40,6 +40,14 @@
     "./matrices": {
       "types": "./dist/matrices/index.d.ts",
       "import": "./dist/matrices/index.js"
+    },
+    "./notifications": {
+      "types": "./dist/notifications/index.d.ts",
+      "import": "./dist/notifications/index.js"
+    },
+    "./reports": {
+      "types": "./dist/reports/index.d.ts",
+      "import": "./dist/reports/index.js"
     }
   },
   "scripts": {
