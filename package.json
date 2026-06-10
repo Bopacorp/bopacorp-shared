@@ -32,6 +32,10 @@
     "./catalog": {
       "types": "./dist/catalog/index.d.ts",
       "import": "./dist/catalog/index.js"
+    },
+    "./matrices": {
+      "types": "./dist/matrices/index.d.ts",
+      "import": "./dist/matrices/index.js"
     }
   },
   "scripts": {
