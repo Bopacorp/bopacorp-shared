@@ -85,3 +85,25 @@ export const ListCandidateResumesQuerySchema = PaginationQuerySchema.extend({
   applicationId: UuidSchema.optional(),
 });
 export type ListCandidateResumesQuery = z.infer<typeof ListCandidateResumesQuerySchema>;
+
+// --- Public apply ---
+
+export const ApplyJobVacancyRequestSchema = z.object({
+  candidate: z.object({
+    nationalId: z.string().min(1).max(20),
+    firstName: z.string().min(1).max(100),
+    lastName: z.string().min(1).max(100),
+    email: EmailSchema,
+    phone: z.string().max(20).optional(),
+    address: z.string().optional(),
+  }),
+  vacancyId: UuidSchema,
+  coverLetter: z.string().optional(),
+});
+export type ApplyJobVacancyRequest = z.infer<typeof ApplyJobVacancyRequestSchema>;
+
+export const UploadCandidateResumeRequestSchema = z.object({
+  candidateId: UuidSchema,
+  applicationId: UuidSchema.optional(),
+});
+export type UploadCandidateResumeRequest = z.infer<typeof UploadCandidateResumeRequestSchema>;
