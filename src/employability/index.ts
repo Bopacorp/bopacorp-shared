@@ -14,6 +14,8 @@ export {
   ListJobApplicationsQuerySchema,
   CreateCandidateResumeRequestSchema,
   ListCandidateResumesQuerySchema,
+  ApplyJobVacancyRequestSchema,
+  UploadCandidateResumeRequestSchema,
 } from './request.js';
 
 export type {
@@ -28,6 +30,8 @@ export type {
   ListJobApplicationsQuery,
   CreateCandidateResumeRequest,
   ListCandidateResumesQuery,
+  ApplyJobVacancyRequest,
+  UploadCandidateResumeRequest,
 } from './request.js';
 
 export {
