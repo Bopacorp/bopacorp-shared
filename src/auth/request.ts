@@ -116,12 +116,14 @@ export const UpdateRoleRequestSchema = z.object({
 export type UpdateRoleRequest = z.infer<typeof UpdateRoleRequestSchema>;
 
 export const AssignRolePermissionsRequestSchema = z.object({
-  permissions: z.array(
-    z.object({
-      permissionId: UuidSchema,
-      isGranted: z.boolean(),
-    })
-  ).min(1),
+  permissions: z
+    .array(
+      z.object({
+        permissionId: UuidSchema,
+        isGranted: z.boolean(),
+      })
+    )
+    .min(1),
 });
 export type AssignRolePermissionsRequest = z.infer<typeof AssignRolePermissionsRequestSchema>;
 

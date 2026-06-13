@@ -7,10 +7,12 @@ const EmployeeRefSchema = z.object({
   id: UuidSchema,
   username: z.string(),
   email: z.string(),
-  profile: z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-  }).nullable(),
+  profile: z
+    .object({
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+    .nullable(),
 });
 
 const SlimEmployeeRefSchema = z.object({
@@ -151,10 +153,12 @@ export const VisitResponseSchema = z
     gpsLongitude: z.number().nullable(),
     gpsAccuracy: z.number().nullable(),
     gpsTimestamp: z.string().datetime().nullable(),
-    negotiation: z.object({
-      id: UuidSchema,
-      client: SlimClientRefSchema,
-    }).nullable(),
+    negotiation: z
+      .object({
+        id: UuidSchema,
+        client: SlimClientRefSchema,
+      })
+      .nullable(),
     client: ClientRefSchema,
     advisor: EmployeeRefSchema,
     verifiedBy: SlimEmployeeRefSchema.nullable(),

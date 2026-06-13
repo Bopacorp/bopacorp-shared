@@ -1,10 +1,9 @@
 import { z } from 'zod';
 import { TimestampsSchema, UuidSchema } from '../common/primitives.js';
+import { ProfileResponseSchema } from '../core/response.js';
 import { PermissionTypeSchema } from './enums.js';
 
-import { ProfileResponseSchema } from '../core/response.js';
-
-export { ProfileResponseSchema, type ProfileResponse } from '../core/response.js';
+export { type ProfileResponse, ProfileResponseSchema } from '../core/response.js';
 
 // --- Auth responses ---
 

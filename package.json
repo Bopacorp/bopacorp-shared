@@ -52,6 +52,10 @@
   },
   "scripts": {
     "build": "tsc",
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
+    "format": "biome format --write src/",
+    "check": "biome check --write src/ && tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
   "publishConfig": {
@@ -61,6 +65,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.0",
     "typescript": "^6.0.3"
   }
 }

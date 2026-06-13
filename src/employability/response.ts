@@ -133,5 +133,3 @@ export const CandidateResumeResponseSchema = z.object({
   createdAt: z.string().datetime(),
 });
 export type CandidateResumeResponse = z.infer<typeof CandidateResumeResponseSchema>;
-
-

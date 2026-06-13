@@ -43,7 +43,10 @@ export type ListVisitTypesQuery = z.infer<typeof ListVisitTypesQuerySchema>;
 
 export const CreateBusinessClientRequestSchema = z.object({
   advisorId: UuidSchema.optional(),
-  ruc: z.string().length(13).regex(/^[0-9]+$/),
+  ruc: z
+    .string()
+    .length(13)
+    .regex(/^[0-9]+$/),
   businessName: z.string().min(1).max(200),
   contactName: z.string().min(1).max(200),
   contactPhone: z.string().max(20).optional(),

@@ -35,7 +35,9 @@ export const CreateNegotiationDocumentRequestSchema = z.object({
   mimeType: z.string().max(100),
   description: z.string().max(255).optional(),
 });
-export type CreateNegotiationDocumentRequest = z.infer<typeof CreateNegotiationDocumentRequestSchema>;
+export type CreateNegotiationDocumentRequest = z.infer<
+  typeof CreateNegotiationDocumentRequestSchema
+>;
 
 export const UpdateNegotiationDocumentRequestSchema = z
   .object({
@@ -44,7 +46,9 @@ export const UpdateNegotiationDocumentRequestSchema = z
     mimeType: z.string().max(100).optional(),
   })
   .strict();
-export type UpdateNegotiationDocumentRequest = z.infer<typeof UpdateNegotiationDocumentRequestSchema>;
+export type UpdateNegotiationDocumentRequest = z.infer<
+  typeof UpdateNegotiationDocumentRequestSchema
+>;
 
 export const ListNegotiationDocumentsQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
