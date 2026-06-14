@@ -10,6 +10,7 @@ export type {
   Timestamps,
 } from './primitives.js';
 export {
+  BooleanQuerySchema,
   EmailSchema,
   IpAddressSchema,
   PaginationMetaSchema,

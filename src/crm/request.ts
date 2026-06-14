@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 
 // --- Lookup: Negotiation States ---
 
@@ -16,7 +16,7 @@ export type UpdateNegotiationStateRequest = z.infer<typeof UpdateNegotiationStat
 
 export const ListNegotiationStatesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListNegotiationStatesQuery = z.infer<typeof ListNegotiationStatesQuerySchema>;
 
@@ -35,7 +35,7 @@ export type UpdateVisitTypeRequest = z.infer<typeof UpdateVisitTypeRequestSchema
 
 export const ListVisitTypesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListVisitTypesQuery = z.infer<typeof ListVisitTypesQuerySchema>;
 
@@ -64,7 +64,7 @@ export type UpdateBusinessClientRequest = z.infer<typeof UpdateBusinessClientReq
 export const ListBusinessClientsQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
   advisorId: UuidSchema.optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListBusinessClientsQuery = z.infer<typeof ListBusinessClientsQuerySchema>;
 
@@ -95,7 +95,7 @@ export const ListNegotiationsQuerySchema = PaginationQuerySchema.extend({
   clientId: UuidSchema.optional(),
   advisorId: UuidSchema.optional(),
   stateId: UuidSchema.optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListNegotiationsQuery = z.infer<typeof ListNegotiationsQuerySchema>;
 
@@ -129,7 +129,7 @@ export const ListVisitsQuerySchema = PaginationQuerySchema.extend({
   clientId: UuidSchema.optional(),
   advisorId: UuidSchema.optional(),
   visitTypeId: UuidSchema.optional(),
-  isVerified: z.coerce.boolean().optional(),
+  isVerified: BooleanQuerySchema.optional(),
   dateFrom: z.string().date().optional(),
   dateTo: z.string().date().optional(),
 });

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { DocumentStateSchema } from './enums.js';
 
 // --- Document Types ---
@@ -18,8 +18,8 @@ export type UpdateDocumentTypeRequest = z.infer<typeof UpdateDocumentTypeRequest
 
 export const ListDocumentTypesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
-  isMandatory: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
+  isMandatory: BooleanQuerySchema.optional(),
 });
 export type ListDocumentTypesQuery = z.infer<typeof ListDocumentTypesQuerySchema>;
 

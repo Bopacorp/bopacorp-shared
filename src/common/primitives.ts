@@ -8,6 +8,11 @@ export const IpAddressSchema = z.string().max(45);
 
 export const UserAgentSchema = z.string().max(500);
 
+export const BooleanQuerySchema = z
+  .enum(['true', 'false'])
+  .transform((v) => v === 'true')
+  .pipe(z.boolean());
+
 export const PaginationQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
