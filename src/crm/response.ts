@@ -18,6 +18,12 @@ const EmployeeRefSchema = z.object({
 const SlimEmployeeRefSchema = z.object({
   id: UuidSchema,
   username: z.string(),
+  profile: z
+    .object({
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+    .nullable(),
 });
 
 const ClientRefSchema = z.object({
