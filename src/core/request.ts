@@ -99,6 +99,7 @@ export type UpdateEmployeeRequest = z.infer<typeof UpdateEmployeeRequestSchema>;
 export const ListEmployeesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
   orgRoleId: UuidSchema.optional(),
+  orgRoleCode: z.string().optional(),
   departmentId: UuidSchema.optional(),
   isActive: z.coerce.boolean().optional(),
 });
