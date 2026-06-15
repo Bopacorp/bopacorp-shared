@@ -57,6 +57,7 @@ export const NegotiationStateResponseSchema = z
     code: z.string(),
     name: z.string(),
     description: z.string().nullable(),
+    position: z.number().int(),
     isActive: z.boolean(),
   })
   .merge(TimestampsSchema);
