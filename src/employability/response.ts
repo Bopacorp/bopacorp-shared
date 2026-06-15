@@ -88,6 +88,14 @@ const ApplicationReviewerSchema = z.object({
   email: z.string(),
 });
 
+export const JobApplicationResumeSchema = z.object({
+  id: UuidSchema,
+  filename: z.string(),
+  mimeType: z.string(),
+  fileSizeMb: z.number(),
+});
+export type JobApplicationResume = z.infer<typeof JobApplicationResumeSchema>;
+
 export const JobApplicationResponseSchema = z
   .object({
     id: UuidSchema,
@@ -99,6 +107,7 @@ export const JobApplicationResponseSchema = z
     vacancy: ApplicationVacancySchema,
     candidate: ApplicationCandidateSchema,
     reviewer: ApplicationReviewerSchema.nullable(),
+    resume: JobApplicationResumeSchema.nullable(),
   })
   .merge(TimestampsSchema);
 export type JobApplicationResponse = z.infer<typeof JobApplicationResponseSchema>;
@@ -108,6 +117,7 @@ export const JobApplicationListItemResponseSchema = z
     id: UuidSchema,
     state: ApplicationStateSchema,
     appliedAt: z.string().datetime().nullable(),
+    hasResume: z.boolean(),
     vacancy: ApplicationVacancySchema,
     candidate: z.object({
       id: UuidSchema,

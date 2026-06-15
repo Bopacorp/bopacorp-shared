@@ -43,6 +43,8 @@ export {
   ListContactRequestsQuerySchema,
 } from './request.js';
 
+export { ContentTypeCode } from './enums.js';
+
 export type {
   CreateItemTypeRequest,
   UpdateItemTypeRequest,
