@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { BooleanQuerySchema, EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import {
+  BooleanQuerySchema,
+  EmailSchema,
+  PaginationQuerySchema,
+  UuidSchema,
+} from '../common/primitives.js';
 
 // ============================================================================
 // Lookup tables — 7 tables with identical structure

@@ -1,3 +1,4 @@
+export { ContentTypeCode } from './enums.js';
 export type {
   CreateBenefitTypeRequest,
   CreateCatalogItemRequest,
@@ -77,8 +78,6 @@ export {
   UpdateSegmentRequestSchema,
   UpdateTierRequestSchema,
 } from './request.js';
-
-export { ContentTypeCode } from './enums.js';
 
 export type {
   AgeConditionResponse,

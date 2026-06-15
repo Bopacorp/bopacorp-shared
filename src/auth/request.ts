@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { BooleanQuerySchema, EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import {
+  BooleanQuerySchema,
+  EmailSchema,
+  PaginationQuerySchema,
+  UuidSchema,
+} from '../common/primitives.js';
 import { PermissionTypeSchema } from './enums.js';
 
 const PasswordSchema = z
