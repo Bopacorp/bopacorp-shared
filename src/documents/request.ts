@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { DocumentStateSchema } from './enums.js';
 
 // --- Document Types ---
@@ -18,8 +18,8 @@ export type UpdateDocumentTypeRequest = z.infer<typeof UpdateDocumentTypeRequest
 
 export const ListDocumentTypesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
-  isMandatory: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
+  isMandatory: BooleanQuerySchema.optional(),
 });
 export type ListDocumentTypesQuery = z.infer<typeof ListDocumentTypesQuerySchema>;
 
@@ -35,7 +35,9 @@ export const CreateNegotiationDocumentRequestSchema = z.object({
   mimeType: z.string().max(100),
   description: z.string().max(255).optional(),
 });
-export type CreateNegotiationDocumentRequest = z.infer<typeof CreateNegotiationDocumentRequestSchema>;
+export type CreateNegotiationDocumentRequest = z.infer<
+  typeof CreateNegotiationDocumentRequestSchema
+>;
 
 export const UpdateNegotiationDocumentRequestSchema = z
   .object({
@@ -44,7 +46,9 @@ export const UpdateNegotiationDocumentRequestSchema = z
     mimeType: z.string().max(100).optional(),
   })
   .strict();
-export type UpdateNegotiationDocumentRequest = z.infer<typeof UpdateNegotiationDocumentRequestSchema>;
+export type UpdateNegotiationDocumentRequest = z.infer<
+  typeof UpdateNegotiationDocumentRequestSchema
+>;
 
 export const ListNegotiationDocumentsQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),

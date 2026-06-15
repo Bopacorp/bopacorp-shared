@@ -7,15 +7,23 @@ const EmployeeRefSchema = z.object({
   id: UuidSchema,
   username: z.string(),
   email: z.string(),
-  profile: z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-  }).nullable(),
+  profile: z
+    .object({
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+    .nullable(),
 });
 
 const SlimEmployeeRefSchema = z.object({
   id: UuidSchema,
   username: z.string(),
+  profile: z
+    .object({
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+    .nullable(),
 });
 
 const ClientRefSchema = z.object({
@@ -37,6 +45,7 @@ const StateRefSchema = z.object({
 
 const VisitTypeRefSchema = z.object({
   id: UuidSchema,
+  code: z.string(),
   name: z.string(),
 });
 
@@ -48,6 +57,7 @@ export const NegotiationStateResponseSchema = z
     code: z.string(),
     name: z.string(),
     description: z.string().nullable(),
+    position: z.number().int(),
     isActive: z.boolean(),
   })
   .merge(TimestampsSchema);
@@ -151,10 +161,12 @@ export const VisitResponseSchema = z
     gpsLongitude: z.number().nullable(),
     gpsAccuracy: z.number().nullable(),
     gpsTimestamp: z.string().datetime().nullable(),
-    negotiation: z.object({
-      id: UuidSchema,
-      client: SlimClientRefSchema,
-    }).nullable(),
+    negotiation: z
+      .object({
+        id: UuidSchema,
+        client: SlimClientRefSchema,
+      })
+      .nullable(),
     client: ClientRefSchema,
     advisor: EmployeeRefSchema,
     verifiedBy: SlimEmployeeRefSchema.nullable(),

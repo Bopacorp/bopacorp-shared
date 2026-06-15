@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { PermissionTypeSchema } from './enums.js';
 
 const PasswordSchema = z
@@ -94,7 +94,7 @@ export type AssignUserRolesRequest = z.infer<typeof AssignUserRolesRequestSchema
 
 export const ListUsersQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListUsersQuery = z.infer<typeof ListUsersQuerySchema>;
 
@@ -116,12 +116,14 @@ export const UpdateRoleRequestSchema = z.object({
 export type UpdateRoleRequest = z.infer<typeof UpdateRoleRequestSchema>;
 
 export const AssignRolePermissionsRequestSchema = z.object({
-  permissions: z.array(
-    z.object({
-      permissionId: UuidSchema,
-      isGranted: z.boolean(),
-    })
-  ).min(1),
+  permissions: z
+    .array(
+      z.object({
+        permissionId: UuidSchema,
+        isGranted: z.boolean(),
+      })
+    )
+    .min(1),
 });
 export type AssignRolePermissionsRequest = z.infer<typeof AssignRolePermissionsRequestSchema>;
 
@@ -170,20 +172,20 @@ export type UpdatePermissionRequest = z.infer<typeof UpdatePermissionRequestSche
 
 export const ListRolesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListRolesQuery = z.infer<typeof ListRolesQuerySchema>;
 
 export const ListModulesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
   parentId: UuidSchema.optional(),
 });
 export type ListModulesQuery = z.infer<typeof ListModulesQuerySchema>;
 
 export const ListPermissionsQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
   moduleId: UuidSchema.optional(),
   type: PermissionTypeSchema.optional(),
 });

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 
 // ============================================================================
 // Lookup tables — 7 tables with identical structure
@@ -21,7 +21,7 @@ const lookupUpdate = z.object({
 
 const lookupListQuery = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 
 export const CreateItemTypeRequestSchema = lookupCreate;
@@ -112,7 +112,7 @@ export type UpdateCategoryRequest = z.infer<typeof UpdateCategoryRequestSchema>;
 export const ListCategoriesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
   parentId: UuidSchema.optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListCategoriesQuery = z.infer<typeof ListCategoriesQuerySchema>;
 
@@ -242,8 +242,8 @@ export type UpdateCatalogItemRequest = z.infer<typeof UpdateCatalogItemRequestSc
 export const ListCatalogItemsQuerySchema = PaginationQuerySchema.extend({
   categoryId: UuidSchema.optional(),
   itemTypeId: UuidSchema.optional(),
-  isActive: z.coerce.boolean().optional(),
-  isPublished: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
+  isPublished: BooleanQuerySchema.optional(),
   search: z.string().optional(),
 });
 export type ListCatalogItemsQuery = z.infer<typeof ListCatalogItemsQuerySchema>;
@@ -296,7 +296,7 @@ export type UpdateContactRequest = z.infer<typeof UpdateContactRequestSchema>;
 
 export const ListContactRequestsQuerySchema = PaginationQuerySchema.extend({
   itemId: UuidSchema.optional(),
-  isAttended: z.coerce.boolean().optional(),
+  isAttended: BooleanQuerySchema.optional(),
   search: z.string().optional(),
 });
 export type ListContactRequestsQuery = z.infer<typeof ListContactRequestsQuerySchema>;

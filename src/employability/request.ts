@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, EmailSchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { ApplicationStateSchema } from './enums.js';
 
 // --- Candidate management ---
@@ -39,8 +39,8 @@ export const UpdateJobVacancyRequestSchema = CreateJobVacancyRequestSchema.parti
 export type UpdateJobVacancyRequest = z.infer<typeof UpdateJobVacancyRequestSchema>;
 
 export const ListJobVacanciesQuerySchema = PaginationQuerySchema.extend({
-  isActive: z.coerce.boolean().optional(),
-  isPublished: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
+  isPublished: BooleanQuerySchema.optional(),
   search: z.string().optional(),
 });
 export type ListJobVacanciesQuery = z.infer<typeof ListJobVacanciesQuerySchema>;

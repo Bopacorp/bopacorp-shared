@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 
 export const CreateNotificationRequestSchema = z.object({
   recipientId: UuidSchema,
@@ -17,6 +17,6 @@ export type UpdateNotificationRequest = z.infer<typeof UpdateNotificationRequest
 
 export const ListNotificationsQuerySchema = PaginationQuerySchema.extend({
   recipientId: UuidSchema.optional(),
-  isRead: z.coerce.boolean().optional(),
+  isRead: BooleanQuerySchema.optional(),
 });
 export type ListNotificationsQuery = z.infer<typeof ListNotificationsQuerySchema>;

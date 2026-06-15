@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 
 export const UpdateProfileRequestSchema = z.object({
   firstName: z.string().min(1).max(100).optional(),
@@ -19,7 +19,7 @@ export const AssignAdvisorSupervisorsRequestSchema = z.object({
 export type AssignAdvisorSupervisorsRequest = z.infer<typeof AssignAdvisorSupervisorsRequestSchema>;
 
 export const ListAdvisorSupervisorsQuerySchema = PaginationQuerySchema.extend({
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListAdvisorSupervisorsQuery = z.infer<typeof ListAdvisorSupervisorsQuerySchema>;
 
@@ -48,7 +48,7 @@ export type UpdateDepartmentRequest = z.infer<typeof UpdateDepartmentRequestSche
 
 export const ListDepartmentsQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListDepartmentsQuery = z.infer<typeof ListDepartmentsQuerySchema>;
 
@@ -73,7 +73,7 @@ export type UpdateOrgRoleRequest = z.infer<typeof UpdateOrgRoleRequestSchema>;
 export const ListOrgRolesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
   departmentId: UuidSchema.optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListOrgRolesQuery = z.infer<typeof ListOrgRolesQuerySchema>;
 
@@ -99,7 +99,8 @@ export type UpdateEmployeeRequest = z.infer<typeof UpdateEmployeeRequestSchema>;
 export const ListEmployeesQuerySchema = PaginationQuerySchema.extend({
   search: z.string().optional(),
   orgRoleId: UuidSchema.optional(),
+  orgRoleCode: z.string().optional(),
   departmentId: UuidSchema.optional(),
-  isActive: z.coerce.boolean().optional(),
+  isActive: BooleanQuerySchema.optional(),
 });
 export type ListEmployeesQuery = z.infer<typeof ListEmployeesQuerySchema>;

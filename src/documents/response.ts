@@ -97,7 +97,9 @@ export const NegotiationDocumentListItemResponseSchema = z
     uploadedBy: SlimUserRefSchema,
   })
   .merge(TimestampsSchema);
-export type NegotiationDocumentListItemResponse = z.infer<typeof NegotiationDocumentListItemResponseSchema>;
+export type NegotiationDocumentListItemResponse = z.infer<
+  typeof NegotiationDocumentListItemResponseSchema
+>;
 
 // --- Document State History ---
 
