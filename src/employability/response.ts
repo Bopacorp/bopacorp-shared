@@ -68,6 +68,27 @@ export const JobVacancyListItemResponseSchema = z
   .merge(TimestampsSchema);
 export type JobVacancyListItemResponse = z.infer<typeof JobVacancyListItemResponseSchema>;
 
+// --- Public job vacancy (no auth) ---
+
+const PublicJobVacancyCreatorSchema = z.object({
+  id: UuidSchema,
+  username: z.string(),
+});
+
+export const PublicJobVacancyResponseSchema = z
+  .object({
+    id: UuidSchema,
+    title: z.string(),
+    description: z.string(),
+    requirements: z.string(),
+    publicationDate: z.string().datetime().nullable(),
+    closingDate: z.string().datetime().nullable(),
+    creator: PublicJobVacancyCreatorSchema,
+  })
+  .merge(TimestampsSchema);
+
+export type PublicJobVacancyResponse = z.infer<typeof PublicJobVacancyResponseSchema>;
+
 // --- Job application ---
 
 const ApplicationVacancySchema = z.object({

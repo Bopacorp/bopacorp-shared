@@ -38,6 +38,7 @@ export type {
   JobApplicationResponse,
   JobVacancyListItemResponse,
   JobVacancyResponse,
+  PublicJobVacancyResponse,
 } from './response.js';
 export {
   CandidateListItemResponseSchema,
@@ -47,4 +48,5 @@ export {
   JobApplicationResponseSchema,
   JobVacancyListItemResponseSchema,
   JobVacancyResponseSchema,
+  PublicJobVacancyResponseSchema,
 } from './response.js';
