@@ -45,6 +45,7 @@ const StateRefSchema = z.object({
 
 const VisitTypeRefSchema = z.object({
   id: UuidSchema,
+  code: z.string(),
   name: z.string(),
 });
 
