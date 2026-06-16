@@ -1,6 +1,6 @@
 {
   "name": "@bopacorp/shared",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,6 +32,10 @@
     "./catalog": {
       "types": "./dist/catalog/index.d.ts",
       "import": "./dist/catalog/index.js"
+    },
+    "./document-uploads": {
+      "types": "./dist/document-uploads/index.d.ts",
+      "import": "./dist/document-uploads/index.js"
     },
     "./documents": {
       "types": "./dist/documents/index.d.ts",

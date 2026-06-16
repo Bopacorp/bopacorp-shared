@@ -3,6 +3,7 @@ export * from './catalog/index.js';
 export * from './common/index.js';
 export * from './core/index.js';
 export * from './crm/index.js';
+export * from './document-uploads/index.js';
 export * from './documents/index.js';
 export * from './employability/index.js';
 export * from './matrices/index.js';

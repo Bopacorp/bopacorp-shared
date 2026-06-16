@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
+import { EncryptionMetadataSchema } from '../document-uploads/enums.js';
 import { DocumentStateSchema } from './enums.js';
 
 // --- Document Types ---
@@ -34,6 +35,7 @@ export const CreateNegotiationDocumentRequestSchema = z.object({
   storagePath: z.string().max(500),
   mimeType: z.string().max(100),
   description: z.string().max(255).optional(),
+  encryptionMetadata: EncryptionMetadataSchema,
 });
 export type CreateNegotiationDocumentRequest = z.infer<
   typeof CreateNegotiationDocumentRequestSchema
