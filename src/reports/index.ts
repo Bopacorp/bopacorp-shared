@@ -3,6 +3,7 @@ export { ReportTypeSchema } from './enums.js';
 export type {
   CreateReportExportRequest,
   CreateSalesObjectiveRequest,
+  ListAdvisorMetricsQuery,
   ListReportExportsQuery,
   ListSalesObjectivesQuery,
   UpdateSalesObjectiveRequest,
@@ -10,17 +11,20 @@ export type {
 export {
   CreateReportExportRequestSchema,
   CreateSalesObjectiveRequestSchema,
+  ListAdvisorMetricsQuerySchema,
   ListReportExportsQuerySchema,
   ListSalesObjectivesQuerySchema,
   UpdateSalesObjectiveRequestSchema,
 } from './request.js';
 export type {
+  AdvisorMetricResponse,
   ReportExportListItemResponse,
   ReportExportResponse,
   SalesObjectiveListItemResponse,
   SalesObjectiveResponse,
 } from './response.js';
 export {
+  AdvisorMetricResponseSchema,
   ReportExportListItemResponseSchema,
   ReportExportResponseSchema,
   SalesObjectiveListItemResponseSchema,
