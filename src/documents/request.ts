@@ -58,6 +58,7 @@ export const ListNegotiationDocumentsQuerySchema = PaginationQuerySchema.extend(
   documentTypeId: UuidSchema.optional(),
   state: DocumentStateSchema.optional(),
   uploadedBy: UuidSchema.optional(),
+  advisorId: UuidSchema.optional(),
 });
 export type ListNegotiationDocumentsQuery = z.infer<typeof ListNegotiationDocumentsQuerySchema>;
 
