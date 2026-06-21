@@ -57,3 +57,11 @@ export const ListReportExportsQuerySchema = PaginationQuerySchema.extend({
   generatedBy: UuidSchema.optional(),
 });
 export type ListReportExportsQuery = z.infer<typeof ListReportExportsQuerySchema>;
+
+// --- Advisor Metrics ---
+
+export const ListAdvisorMetricsQuerySchema = z.object({
+  dateFrom: z.string().date().optional(),
+  dateTo: z.string().date().optional(),
+});
+export type ListAdvisorMetricsQuery = z.infer<typeof ListAdvisorMetricsQuerySchema>;

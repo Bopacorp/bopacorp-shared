@@ -91,3 +91,26 @@ export const ReportExportListItemResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type ReportExportListItemResponse = z.infer<typeof ReportExportListItemResponseSchema>;
+
+// --- Advisor Metrics ---
+
+export const AdvisorMetricResponseSchema = z.object({
+  advisor: z.object({
+    id: UuidSchema,
+    username: z.string(),
+    profile: z
+      .object({
+        firstName: z.string(),
+        lastName: z.string(),
+      })
+      .nullable(),
+  }),
+  clientsContacted: z.number().int(),
+  clientsInNegotiation: z.number().int(),
+  clientsClosed: z.number().int(),
+  clientsPostSale: z.number().int(),
+  clientsVisited: z.number().int(),
+  totalBilledAmount: z.number(),
+  averageBillingPerService: z.number(),
+});
+export type AdvisorMetricResponse = z.infer<typeof AdvisorMetricResponseSchema>;
