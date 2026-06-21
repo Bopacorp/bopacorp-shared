@@ -4,7 +4,8 @@ Shared Zod schemas and TypeScript types for the BOPADIGITAL platform.
 
 Used by:
 - **bopacorp-api** — request validation and response typing
-- **bopacorp-web** — CRM/CMS frontend types
+- **bopacorp-web** — Landing and CMS frontend types
+- **bopacorp-crm** — CRM frontend types
 - **bopacorp-mobile** — field app types
 
 ## Install
