@@ -232,7 +232,8 @@ General rule: if it exists for security, auditing, or soft-deletion — it stays
 
 ## Code Rules
 
-- **English only** — all names, messages, everything
+- **English for code** — all identifiers, schema names, file names, and internal code in English
+- **Spanish for user-facing messages** — validation messages in schemas are in Spanish, since the platform UI is 100% Spanish
 - **No comments** — code must be self-explanatory
 - **No emojis** in source files
 - **`.js` extension** on all relative imports (`'./enums.js'` not `'./enums'`)
