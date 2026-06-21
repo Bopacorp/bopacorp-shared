@@ -71,6 +71,6 @@ export type NationalId = z.infer<typeof NationalIdSchema>;
 export const PhoneSchema = z
   .string()
   .min(9, 'El teléfono debe tener al menos 9 dígitos')
-  .max(12, 'El teléfono debe tener máximo 12 dígitos')
-  .regex(/^\+?\d{9,12}$/, 'El teléfono solo debe contener números');
+  .max(10, 'El teléfono debe tener máximo 10 dígitos')
+  .regex(/^\d{9,10}$/, 'El teléfono solo debe contener números');
 export type Phone = z.infer<typeof PhoneSchema>;
