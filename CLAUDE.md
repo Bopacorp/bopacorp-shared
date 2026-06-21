@@ -161,5 +161,6 @@ General rule: if a column exists for internal security/auditing, it stays in bac
 - Barrel files use explicit named exports, not `export *`
 - No comments in source files
 - No emojis in source files
-- All code in English
+- All identifiers, schema names, file names, and internal code in English
+- User-facing validation messages in Spanish (the platform UI is 100% Spanish)
 - Recursive types (like tree structures) use `z.lazy()` + explicit interface
