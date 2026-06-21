@@ -1,6 +1,7 @@
 export type { ApplicationState } from './enums.js';
 export { ApplicationStateSchema } from './enums.js';
 export type {
+  ApplyJobVacancyForm,
   ApplyJobVacancyRequest,
   CreateCandidateRequest,
   CreateCandidateResumeRequest,
@@ -16,6 +17,7 @@ export type {
   UploadCandidateResumeRequest,
 } from './request.js';
 export {
+  ApplyJobVacancyFormSchema,
   ApplyJobVacancyRequestSchema,
   CreateCandidateRequestSchema,
   CreateCandidateResumeRequestSchema,

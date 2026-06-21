@@ -318,7 +318,7 @@ export type ListContentBlocksQuery = z.infer<typeof ListContentBlocksQuerySchema
 
 export const CreateContactRequestSchema = z.object({
   itemId: UuidSchema.optional(),
-  clientName: z.string().min(1, 'El nombre es obligatorio').max(200, 'Máximo 200 caracteres'),
+  clientName: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
   clientEmail: EmailSchema,
   clientPhone: PhoneSchema.optional(),
   message: z.string().max(1000, 'Máximo 1000 caracteres').optional(),

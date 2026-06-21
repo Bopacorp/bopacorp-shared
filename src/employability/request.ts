@@ -115,6 +115,11 @@ export const ApplyJobVacancyRequestSchema = z.object({
 });
 export type ApplyJobVacancyRequest = z.infer<typeof ApplyJobVacancyRequestSchema>;
 
+export const ApplyJobVacancyFormSchema = CreateCandidateRequestSchema.extend({
+  coverLetter: ApplyJobVacancyRequestSchema.shape.coverLetter,
+});
+export type ApplyJobVacancyForm = z.infer<typeof ApplyJobVacancyFormSchema>;
+
 export const UploadCandidateResumeRequestSchema = z.object({
   candidateId: UuidSchema,
   applicationId: UuidSchema.optional(),
