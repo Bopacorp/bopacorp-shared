@@ -291,6 +291,7 @@ export type CmsLandingResponse = z.infer<typeof CmsLandingResponseSchema>;
 export const ContactRequestResponseSchema = z.object({
   id: UuidSchema,
   itemId: UuidSchema.nullable(),
+  itemName: z.string().nullable(),
   clientName: z.string(),
   clientEmail: z.string(),
   clientPhone: z.string().nullable(),
