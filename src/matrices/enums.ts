@@ -1,4 +1,4 @@
 import { z } from 'zod';
 
-export const MatrixStateSchema = z.enum(['DRAFT', 'PENDING_APPROVAL', 'APPROVED', 'REJECTED']);
-export type MatrixState = z.infer<typeof MatrixStateSchema>;
+export const AttachmentTypeSchema = z.enum(['OFFER_MATRIX', 'EMAIL_TEMPLATE']);
+export type AttachmentType = z.infer<typeof AttachmentTypeSchema>;
