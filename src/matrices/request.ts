@@ -43,6 +43,7 @@ export const CreateMatrixAttachmentRequestSchema = z.object({
     .min(1, 'La ruta de almacenamiento es obligatoria')
     .max(500, 'Máximo 500 caracteres'),
   mimeType: z.string().min(1, 'El tipo MIME es obligatorio').max(100, 'Máximo 100 caracteres'),
+  encryptionMetadata: z.record(z.unknown()).optional(),
 });
 export type CreateMatrixAttachmentRequest = z.infer<typeof CreateMatrixAttachmentRequestSchema>;
 
