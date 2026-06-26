@@ -273,6 +273,7 @@ export type UpdateCatalogItemRequest = z.infer<typeof UpdateCatalogItemRequestSc
 
 export const ListPublicCatalogQuerySchema = z.object({
   categoryId: UuidSchema.optional(),
+  segmentId: UuidSchema.optional(),
   minPrice: z.coerce.number().nonnegative().optional(),
   maxPrice: z.coerce.number().nonnegative().optional(),
 });
