@@ -271,6 +271,13 @@ export const UpdateCatalogItemRequestSchema = z.object({
 });
 export type UpdateCatalogItemRequest = z.infer<typeof UpdateCatalogItemRequestSchema>;
 
+export const ListPublicCatalogQuerySchema = z.object({
+  categoryId: UuidSchema.optional(),
+  minPrice: z.coerce.number().nonnegative().optional(),
+  maxPrice: z.coerce.number().nonnegative().optional(),
+});
+export type ListPublicCatalogQuery = z.infer<typeof ListPublicCatalogQuerySchema>;
+
 export const ListCatalogItemsQuerySchema = PaginationQuerySchema.extend({
   categoryId: UuidSchema.optional(),
   itemTypeId: UuidSchema.optional(),
