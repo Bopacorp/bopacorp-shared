@@ -195,12 +195,12 @@ export type TemporalConditionResponse = z.infer<typeof TemporalConditionResponse
 // Catalog items (core product)
 // ============================================================================
 
-const CatalogItemCategoryRefSchema = z.object({
+export const CatalogItemCategoryRefSchema = z.object({
   id: UuidSchema,
   name: z.string(),
 });
 
-const CatalogItemTypeRefSchema = z.object({
+export const CatalogItemTypeRefSchema = z.object({
   id: UuidSchema,
   code: z.string(),
   name: z.string(),
@@ -255,6 +255,30 @@ export const CatalogItemListItemResponseSchema = z
   })
   .merge(TimestampsSchema);
 export type CatalogItemListItemResponse = z.infer<typeof CatalogItemListItemResponseSchema>;
+
+// ============================================================================
+// Public catalog (subset of CatalogItemResponse for unauthenticated access)
+// ============================================================================
+
+const PublicItemBenefitSchema = ItemBenefitResponseSchema.omit({
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const PublicCatalogItemResponseSchema = CatalogItemResponseSchema.omit({
+  activationCode: true,
+  isActive: true,
+  isPublished: true,
+  ageConditions: true,
+  legalConditions: true,
+  temporalConditions: true,
+  createdAt: true,
+  updatedAt: true,
+  benefits: true,
+}).extend({
+  benefits: z.array(PublicItemBenefitSchema),
+});
+export type PublicCatalogItemResponse = z.infer<typeof PublicCatalogItemResponseSchema>;
 
 // ============================================================================
 // Content blocks (CMS)
