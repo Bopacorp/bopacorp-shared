@@ -329,6 +329,7 @@ export type UpdateContentBlockRequest = z.infer<typeof UpdateContentBlockRequest
 export const ListContentBlocksQuerySchema = PaginationQuerySchema.extend({
   contentTypeId: UuidSchema.optional(),
   search: z.string().optional(),
+  section: z.string().max(50).optional(),
 });
 export type ListContentBlocksQuery = z.infer<typeof ListContentBlocksQuerySchema>;
 

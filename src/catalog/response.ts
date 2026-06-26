@@ -306,6 +306,12 @@ export const ContentBlockResponseSchema = z
   .merge(TimestampsSchema);
 export type ContentBlockResponse = z.infer<typeof ContentBlockResponseSchema>;
 
+export const ContentBlockSectionResponseSchema = z.object({
+  prefix: z.string(),
+  count: z.number().int(),
+});
+export type ContentBlockSectionResponse = z.infer<typeof ContentBlockSectionResponseSchema>;
+
 export const CmsLandingResponseSchema = z.object({
   blocks: z.record(z.string(), ContentBlockResponseSchema),
 });
