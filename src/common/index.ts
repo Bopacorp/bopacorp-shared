@@ -16,6 +16,7 @@ export type {
 export {
   BooleanQuerySchema,
   EcuadorianIdSchema,
+  CorporateEmailSchema,
   EmailSchema,
   IpAddressSchema,
   NationalIdSchema,

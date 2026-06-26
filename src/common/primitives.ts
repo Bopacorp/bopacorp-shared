@@ -6,6 +6,11 @@ export const EmailSchema = z
   .email('Correo electrónico no válido')
   .max(150, 'El correo no puede exceder 150 caracteres');
 
+export const CorporateEmailSchema = EmailSchema.refine(
+  (v) => v.endsWith('@bopacorp.com'),
+  'Solo se permiten correos @bopacorp.com'
+);
+
 export const IpAddressSchema = z.string().max(45);
 
 export const UserAgentSchema = z.string().max(500);

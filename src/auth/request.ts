@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   BooleanQuerySchema,
+  CorporateEmailSchema,
   EcuadorianIdSchema,
   EmailSchema,
   PaginationQuerySchema,
@@ -28,7 +29,7 @@ export type IdParam = z.infer<typeof IdParamSchema>;
 // --- Auth operations ---
 
 export const LoginRequestSchema = z.object({
-  email: EmailSchema.transform((v) => v.toLowerCase().trim()),
+  email: CorporateEmailSchema.transform((v) => v.toLowerCase().trim()),
   password: z.string().min(1, 'La contraseña es obligatoria'),
 });
 export type LoginRequest = z.infer<typeof LoginRequestSchema>;
@@ -86,7 +87,7 @@ export const CreateUserRequestSchema = z.object({
     .string()
     .min(1, 'El nombre de usuario es obligatorio')
     .max(50, 'Máximo 50 caracteres'),
-  email: EmailSchema,
+  email: CorporateEmailSchema,
   password: PasswordSchema,
   isActive: z.boolean().default(true),
   profile: CreateProfileSchema,
