@@ -100,6 +100,11 @@ export type ListContentTypesQuery = z.infer<typeof ListContentTypesQuerySchema>;
 export const CreateCategoryRequestSchema = z.object({
   parentId: UuidSchema.optional(),
   name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
+  slug: z
+    .string()
+    .min(1, 'El slug es obligatorio')
+    .max(120, 'Máximo 120 caracteres')
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Solo letras minúsculas, números y guiones'),
   description: z.string().max(255, 'Máximo 255 caracteres').optional(),
   sortOrder: z.number().int().default(0),
   isActive: z.boolean().default(true),
@@ -109,6 +114,12 @@ export type CreateCategoryRequest = z.infer<typeof CreateCategoryRequestSchema>;
 export const UpdateCategoryRequestSchema = z.object({
   parentId: UuidSchema.nullable().optional(),
   name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres').optional(),
+  slug: z
+    .string()
+    .min(1, 'El slug es obligatorio')
+    .max(120, 'Máximo 120 caracteres')
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Solo letras minúsculas, números y guiones')
+    .optional(),
   description: z.string().max(255, 'Máximo 255 caracteres').optional(),
   sortOrder: z.number().int().optional(),
   isActive: z.boolean().optional(),

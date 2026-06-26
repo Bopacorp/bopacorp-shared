@@ -75,6 +75,7 @@ export const CategoryResponseSchema = z
     id: UuidSchema,
     parentId: UuidSchema.nullable(),
     name: z.string(),
+    slug: z.string(),
     description: z.string().nullable(),
     sortOrder: z.number().int(),
     isActive: z.boolean(),
@@ -87,6 +88,7 @@ export const CategoryListItemResponseSchema = z
     id: UuidSchema,
     parentId: UuidSchema.nullable(),
     name: z.string(),
+    slug: z.string(),
     sortOrder: z.number().int(),
     isActive: z.boolean(),
   })
@@ -198,6 +200,7 @@ export type TemporalConditionResponse = z.infer<typeof TemporalConditionResponse
 export const CatalogItemCategoryRefSchema = z.object({
   id: UuidSchema,
   name: z.string(),
+  slug: z.string(),
 });
 
 export const CatalogItemTypeRefSchema = z.object({
