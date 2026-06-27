@@ -1,36 +1,34 @@
-export type { ReportType } from './enums.js';
-export { ReportTypeSchema } from './enums.js';
+export type { ReportType, TierCode } from './enums.js';
+export { ReportTypeSchema, TierCodeSchema } from './enums.js';
 export type {
   CreateReportExportRequest,
-  CreateSalesObjectiveRequest,
   ListAdvisorMetricsQuery,
+  ListAdvisorPerformanceQuery,
   ListRecentActivityQuery,
   ListReportExportsQuery,
-  ListSalesObjectivesQuery,
-  UpdateSalesObjectiveRequest,
+  UpdateSalesTargetRequest,
 } from './request.js';
 export {
   CreateReportExportRequestSchema,
-  CreateSalesObjectiveRequestSchema,
   ListAdvisorMetricsQuerySchema,
+  ListAdvisorPerformanceQuerySchema,
   ListRecentActivityQuerySchema,
   ListReportExportsQuerySchema,
-  ListSalesObjectivesQuerySchema,
-  UpdateSalesObjectiveRequestSchema,
+  UpdateSalesTargetRequestSchema,
 } from './request.js';
 export type {
   AdvisorMetricResponse,
+  AdvisorPerformanceResponse,
   RecentActivityResponse,
   ReportExportListItemResponse,
   ReportExportResponse,
-  SalesObjectiveListItemResponse,
-  SalesObjectiveResponse,
+  SalesTargetResponse,
 } from './response.js';
 export {
   AdvisorMetricResponseSchema,
+  AdvisorPerformanceResponseSchema,
   RecentActivityResponseSchema,
   ReportExportListItemResponseSchema,
   ReportExportResponseSchema,
-  SalesObjectiveListItemResponseSchema,
-  SalesObjectiveResponseSchema,
+  SalesTargetResponseSchema,
 } from './response.js';

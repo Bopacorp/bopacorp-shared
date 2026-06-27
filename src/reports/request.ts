@@ -3,34 +3,16 @@ import { V, vk } from '../i18n/keys.js';
 import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { ReportTypeSchema } from './enums.js';
 
-// --- Sales Objectives ---
+// --- Sales Targets ---
 
-export const CreateSalesObjectiveRequestSchema = z.object({
-  createdBy: UuidSchema,
-  advisorId: UuidSchema.optional(),
-  targetSalesAmount: z
-    .number({ error: V.REQUIRED })
-    .min(0, V.NON_NEGATIVE),
-  targetClosedDeals: z
-    .number({ error: V.REQUIRED })
-    .int(V.INTEGER)
-    .min(0, V.NON_NEGATIVE),
-  periodStart: z.string().date(V.DATE_INVALID),
-  periodEnd: z.string().date(V.DATE_INVALID),
+export const UpdateSalesTargetRequestSchema = z.object({
+  tierLabel: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  minBilling: z.number().min(0, V.NON_NEGATIVE).optional(),
+  maxBilling: z.number().min(0, V.NON_NEGATIVE).nullable().optional(),
+  minCloses: z.number({ error: V.REQUIRED }).int(V.INTEGER).min(0, V.NON_NEGATIVE).optional(),
+  isActive: z.boolean().optional(),
 });
-export type CreateSalesObjectiveRequest = z.infer<typeof CreateSalesObjectiveRequestSchema>;
-
-export const UpdateSalesObjectiveRequestSchema = CreateSalesObjectiveRequestSchema.partial();
-export type UpdateSalesObjectiveRequest = z.infer<typeof UpdateSalesObjectiveRequestSchema>;
-
-export const ListSalesObjectivesQuerySchema = PaginationQuerySchema.extend({
-  createdBy: UuidSchema.optional(),
-  advisorId: UuidSchema.optional(),
-  supervisorId: UuidSchema.optional(),
-  periodStart: z.string().date(V.DATE_INVALID).optional(),
-  periodEnd: z.string().date(V.DATE_INVALID).optional(),
-});
-export type ListSalesObjectivesQuery = z.infer<typeof ListSalesObjectivesQuerySchema>;
+export type UpdateSalesTargetRequest = z.infer<typeof UpdateSalesTargetRequestSchema>;
 
 // --- Report Exports ---
 
@@ -80,3 +62,12 @@ export const ListRecentActivityQuerySchema = PaginationQuerySchema.extend({
   dateTo: z.string().date().optional(),
 });
 export type ListRecentActivityQuery = z.infer<typeof ListRecentActivityQuerySchema>;
+
+// --- Advisor Performance ---
+
+export const ListAdvisorPerformanceQuerySchema = z.object({
+  supervisorId: UuidSchema.optional(),
+  dateFrom: z.string().date().optional(),
+  dateTo: z.string().date().optional(),
+});
+export type ListAdvisorPerformanceQuery = z.infer<typeof ListAdvisorPerformanceQuerySchema>;

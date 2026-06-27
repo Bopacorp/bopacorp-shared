@@ -8,6 +8,7 @@ import {
   RucSchema,
   UuidSchema,
 } from '../common/primitives.js';
+import { TierCodeSchema } from '../reports/enums.js';
 
 // --- Lookup: Negotiation States ---
 
@@ -111,6 +112,7 @@ export const ListNegotiationsQuerySchema = PaginationQuerySchema.extend({
   clientId: UuidSchema.optional(),
   advisorId: UuidSchema.optional(),
   stateId: UuidSchema.optional(),
+  tierCode: TierCodeSchema.optional(),
   isActive: BooleanQuerySchema.optional(),
 });
 export type ListNegotiationsQuery = z.infer<typeof ListNegotiationsQuerySchema>;

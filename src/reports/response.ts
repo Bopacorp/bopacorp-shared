@@ -21,44 +21,39 @@ const SlimUserRefSchema = z.object({
   username: z.string(),
 });
 
-const EmployeeRefSchema = z.object({
-  id: UuidSchema,
-  userId: UuidSchema,
-  profile: z
-    .object({
-      firstName: z.string(),
-      lastName: z.string(),
-    })
-    .nullable(),
+// --- Sales Targets ---
+
+export const SalesTargetResponseSchema = z
+  .object({
+    id: UuidSchema,
+    tierCode: z.string(),
+    tierLabel: z.string(),
+    minBilling: z.number(),
+    maxBilling: z.number().nullable(),
+    minCloses: z.number().int(),
+    isActive: z.boolean(),
+  })
+  .merge(TimestampsSchema);
+export type SalesTargetResponse = z.infer<typeof SalesTargetResponseSchema>;
+
+// --- Advisor Performance ---
+
+const AdvisorTierPerformanceSchema = z.object({
+  tierCode: z.string(),
+  tierLabel: z.string(),
+  closedCount: z.number().int(),
+  minCloses: z.number().int(),
+  met: z.boolean(),
 });
 
-// --- Sales Objectives ---
-
-export const SalesObjectiveResponseSchema = z
-  .object({
-    id: UuidSchema,
-    targetSalesAmount: z.number(),
-    targetClosedDeals: z.number(),
-    periodStart: z.string().date(),
-    periodEnd: z.string().date(),
-    createdBy: UserRefSchema,
-    advisor: EmployeeRefSchema.nullable(),
-  })
-  .merge(TimestampsSchema);
-export type SalesObjectiveResponse = z.infer<typeof SalesObjectiveResponseSchema>;
-
-export const SalesObjectiveListItemResponseSchema = z
-  .object({
-    id: UuidSchema,
-    targetSalesAmount: z.number(),
-    targetClosedDeals: z.number(),
-    periodStart: z.string().date(),
-    periodEnd: z.string().date(),
-    createdBy: SlimUserRefSchema,
-    advisor: UserRefSchema.nullable(),
-  })
-  .merge(TimestampsSchema);
-export type SalesObjectiveListItemResponse = z.infer<typeof SalesObjectiveListItemResponseSchema>;
+export const AdvisorPerformanceResponseSchema = z.object({
+  advisor: UserRefSchema,
+  tiers: z.array(AdvisorTierPerformanceSchema),
+  totalClosed: z.number().int(),
+  totalRequired: z.number().int(),
+  overallMet: z.boolean(),
+});
+export type AdvisorPerformanceResponse = z.infer<typeof AdvisorPerformanceResponseSchema>;
 
 // --- Report Exports ---
 
