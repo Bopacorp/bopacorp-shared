@@ -55,7 +55,7 @@ export const SalesObjectiveListItemResponseSchema = z
     periodStart: z.string().date(),
     periodEnd: z.string().date(),
     createdBy: SlimUserRefSchema,
-    advisor: SlimUserRefSchema.nullable(),
+    advisor: UserRefSchema.nullable(),
   })
   .merge(TimestampsSchema);
 export type SalesObjectiveListItemResponse = z.infer<typeof SalesObjectiveListItemResponseSchema>;
