@@ -123,6 +123,13 @@ const EmployeeOrgRoleRefSchema = z.object({
   department: OrgRoleDepartmentRefSchema.nullable(),
 });
 
+const EmployeeRelationRefSchema = z.object({
+  userId: UuidSchema,
+  username: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+});
+
 export const EmployeeResponseSchema = z
   .object({
     userId: UuidSchema,
@@ -132,6 +139,8 @@ export const EmployeeResponseSchema = z
     hiredAt: z.string().nullable(),
     isActive: z.boolean(),
     deletedAt: z.string().datetime().nullable(),
+    supervisors: z.array(EmployeeRelationRefSchema),
+    advisors: z.array(EmployeeRelationRefSchema),
   })
   .merge(TimestampsSchema);
 export type EmployeeResponse = z.infer<typeof EmployeeResponseSchema>;
