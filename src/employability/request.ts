@@ -14,8 +14,8 @@ import { ApplicationStateSchema } from './enums.js';
 
 export const CreateCandidateRequestSchema = z.object({
   nationalId: EcuadorianIdSchema,
-  firstName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
-  lastName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  firstName: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  lastName: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   email: EmailSchema,
   phone: PhoneSchema,
   address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
@@ -33,9 +33,9 @@ export type ListCandidatesQuery = z.infer<typeof ListCandidatesQuerySchema>;
 // --- Job vacancy management ---
 
 export const CreateJobVacancyRequestSchema = z.object({
-  title: z.string().min(1, V.REQUIRED).max(255, vk(V.MAX_CHARS, { max: 255 })),
-  description: z.string().min(1, V.REQUIRED),
-  requirements: z.string().min(1, V.REQUIRED),
+  title: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(255, vk(V.MAX_CHARS, { max: 255 })),
+  description: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
+  requirements: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
   isActive: z.boolean().default(true),
   isPublished: z.boolean().default(false),
   publicationDate: z.string().datetime(V.DATETIME_INVALID).optional(),
@@ -82,10 +82,10 @@ export const CreateCandidateResumeRequestSchema = z.object({
   candidateId: UuidSchema,
   applicationId: UuidSchema.optional(),
   filename: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(255, vk(V.MAX_CHARS, { max: 255 })),
-  fileExtension: z.string().min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
+  fileExtension: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
   fileSizeMb: z
     .number()
     .positive(vk(V.FILE_MIN_SIZE, { min: 0 }))
@@ -105,8 +105,8 @@ export type ListCandidateResumesQuery = z.infer<typeof ListCandidateResumesQuery
 export const ApplyJobVacancyRequestSchema = z.object({
   candidate: z.object({
     nationalId: EcuadorianIdSchema,
-    firstName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
-    lastName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+    firstName: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+    lastName: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
     email: EmailSchema,
     phone: PhoneSchema,
     address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),

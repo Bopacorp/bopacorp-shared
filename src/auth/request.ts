@@ -11,7 +11,7 @@ import {
 import { PermissionTypeSchema } from './enums.js';
 
 const PasswordSchema = z
-  .string()
+  .string({ error: V.PASSWORD_REQUIRED })
   .min(8, vk(V.PASSWORD_MIN, { min: 8 }))
   .max(128, vk(V.PASSWORD_MAX, { max: 128 }))
   .regex(/[A-Z]/, V.PASSWORD_UPPERCASE)
@@ -30,22 +30,22 @@ export type IdParam = z.infer<typeof IdParamSchema>;
 
 export const LoginRequestSchema = z.object({
   email: CorporateEmailSchema.transform((v) => v.toLowerCase().trim()),
-  password: z.string().min(1, V.PASSWORD_REQUIRED),
+  password: z.string({ error: V.PASSWORD_REQUIRED }).min(1, V.PASSWORD_REQUIRED),
 });
 export type LoginRequest = z.infer<typeof LoginRequestSchema>;
 
 export const LogoutRequestSchema = z.object({
-  refreshToken: z.string().min(1, V.REQUIRED),
+  refreshToken: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
 });
 export type LogoutRequest = z.infer<typeof LogoutRequestSchema>;
 
 export const RefreshTokenRequestSchema = z.object({
-  refreshToken: z.string().min(1, V.REQUIRED),
+  refreshToken: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
 });
 export type RefreshTokenRequest = z.infer<typeof RefreshTokenRequestSchema>;
 
 export const ChangePasswordRequestSchema = z.object({
-  currentPassword: z.string().min(1, V.REQUIRED),
+  currentPassword: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
   newPassword: PasswordSchema,
 });
 export type ChangePasswordRequest = z.infer<typeof ChangePasswordRequestSchema>;
@@ -56,7 +56,7 @@ export const ForgotPasswordRequestSchema = z.object({
 export type ForgotPasswordRequest = z.infer<typeof ForgotPasswordRequestSchema>;
 
 export const ResetPasswordRequestSchema = z.object({
-  token: z.string().min(1, V.REQUIRED),
+  token: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
   newPassword: PasswordSchema,
 });
 export type ResetPasswordRequest = z.infer<typeof ResetPasswordRequestSchema>;
@@ -64,9 +64,9 @@ export type ResetPasswordRequest = z.infer<typeof ResetPasswordRequestSchema>;
 // --- Profile (nested in user creation/update) ---
 
 const CreateProfileSchema = z.object({
-  firstName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  firstName: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   secondName: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
-  lastName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  lastName: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   secondLastName: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   nationalId: EcuadorianIdSchema,
   phone: PhoneSchema.optional(),
@@ -84,7 +84,7 @@ const UpdateProfileSchema = CreateProfileSchema.partial();
 
 export const CreateUserRequestSchema = z.object({
   username: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(50, vk(V.MAX_CHARS, { max: 50 })),
   email: CorporateEmailSchema,
@@ -116,8 +116,8 @@ export type ListUsersQuery = z.infer<typeof ListUsersQuerySchema>;
 // --- Role management ---
 
 export const CreateRoleRequestSchema = z.object({
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
-  slug: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  slug: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().default(true),
 });
@@ -125,7 +125,7 @@ export type CreateRoleRequest = z.infer<typeof CreateRoleRequestSchema>;
 
 export const UpdateRoleRequestSchema = z.object({
   name: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(50, vk(V.MAX_CHARS, { max: 50 }))
     .optional(),
@@ -150,8 +150,8 @@ export type AssignRolePermissionsRequest = z.infer<typeof AssignRolePermissionsR
 
 export const CreateModuleRequestSchema = z.object({
   parentId: UuidSchema.optional(),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
-  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   sortOrder: z.number().int().default(0),
   isActive: z.boolean().default(true),
@@ -161,7 +161,7 @@ export type CreateModuleRequest = z.infer<typeof CreateModuleRequestSchema>;
 export const UpdateModuleRequestSchema = z.object({
   parentId: UuidSchema.nullable().optional(),
   name: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(50, vk(V.MAX_CHARS, { max: 50 }))
     .optional(),
@@ -175,8 +175,8 @@ export type UpdateModuleRequest = z.infer<typeof UpdateModuleRequestSchema>;
 
 export const CreatePermissionRequestSchema = z.object({
   moduleId: UuidSchema,
-  code: z.string().min(1, V.REQUIRED).max(150, vk(V.MAX_CHARS, { max: 150 })),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(150, vk(V.MAX_CHARS, { max: 150 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   type: PermissionTypeSchema,
   isActive: z.boolean().default(true),
@@ -184,7 +184,7 @@ export const CreatePermissionRequestSchema = z.object({
 export type CreatePermissionRequest = z.infer<typeof CreatePermissionRequestSchema>;
 
 export const UpdatePermissionRequestSchema = z.object({
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   type: PermissionTypeSchema.optional(),
   isActive: z.boolean().optional(),

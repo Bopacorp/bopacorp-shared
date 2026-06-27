@@ -4,8 +4,8 @@ import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common
 
 export const CreateNotificationRequestSchema = z.object({
   recipientId: UuidSchema,
-  title: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
-  message: z.string().min(1, V.REQUIRED),
+  title: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
+  message: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
   referenceType: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   referenceId: UuidSchema.optional(),
 });

@@ -10,13 +10,13 @@ import {
 
 export const UpdateProfileRequestSchema = z.object({
   firstName: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(50, vk(V.MAX_CHARS, { max: 50 }))
     .optional(),
   secondName: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   lastName: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(50, vk(V.MAX_CHARS, { max: 50 }))
     .optional(),
@@ -52,15 +52,15 @@ export type UserIdParam = z.infer<typeof UserIdParamSchema>;
 // --- Department management ---
 
 export const CreateDepartmentRequestSchema = z.object({
-  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   isActive: z.boolean().default(true),
 });
 export type CreateDepartmentRequest = z.infer<typeof CreateDepartmentRequestSchema>;
 
 export const UpdateDepartmentRequestSchema = z.object({
-  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   isActive: z.boolean().optional(),
 });
 export type UpdateDepartmentRequest = z.infer<typeof UpdateDepartmentRequestSchema>;
@@ -74,16 +74,16 @@ export type ListDepartmentsQuery = z.infer<typeof ListDepartmentsQuerySchema>;
 // --- Org role management ---
 
 export const CreateOrgRoleRequestSchema = z.object({
-  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   departmentId: UuidSchema.optional(),
   isActive: z.boolean().default(true),
 });
 export type CreateOrgRoleRequest = z.infer<typeof CreateOrgRoleRequestSchema>;
 
 export const UpdateOrgRoleRequestSchema = z.object({
-  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   departmentId: UuidSchema.nullable().optional(),
   isActive: z.boolean().optional(),
 });

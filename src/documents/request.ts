@@ -7,8 +7,8 @@ import { DocumentStateSchema } from './enums.js';
 // --- Document Types ---
 
 export const CreateDocumentTypeRequestSchema = z.object({
-  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isMandatory: z.boolean().default(false),
   isActive: z.boolean().default(true),
@@ -31,19 +31,19 @@ export const CreateNegotiationDocumentRequestSchema = z.object({
   negotiationId: UuidSchema,
   documentTypeId: UuidSchema,
   filename: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(255, vk(V.MAX_CHARS, { max: 255 })),
-  fileExtension: z.string().min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
+  fileExtension: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
   fileSizeMb: z
     .number()
     .min(0.01, vk(V.FILE_MIN_SIZE, { min: 0.01 }))
     .max(50, vk(V.FILE_MAX_SIZE, { max: 50 })),
   storagePath: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(500, vk(V.MAX_CHARS, { max: 500 })),
-  mimeType: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  mimeType: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   encryptionMetadata: EncryptionMetadataSchema,
 });
@@ -54,17 +54,17 @@ export type CreateNegotiationDocumentRequest = z.infer<
 export const UpdateNegotiationDocumentRequestSchema = z
   .object({
     filename: z
-      .string()
+      .string({ error: V.REQUIRED })
       .min(1, V.REQUIRED)
       .max(255, vk(V.MAX_CHARS, { max: 255 }))
       .optional(),
     storagePath: z
-      .string()
+      .string({ error: V.REQUIRED })
       .min(1, V.REQUIRED)
       .max(500, vk(V.MAX_CHARS, { max: 500 }))
       .optional(),
     mimeType: z
-      .string()
+      .string({ error: V.REQUIRED })
       .min(1, V.REQUIRED)
       .max(100, vk(V.MAX_CHARS, { max: 100 }))
       .optional(),

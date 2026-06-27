@@ -13,15 +13,15 @@ import { V, vk } from '../i18n/keys.js';
 // ============================================================================
 
 const lookupCreate = z.object({
-  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
-  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().default(true),
 });
 
 const lookupUpdate = z.object({
-  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })).optional(),
-  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })).optional(),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })).optional(),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })).optional(),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().optional(),
 });
@@ -100,9 +100,9 @@ export type ListContentTypesQuery = z.infer<typeof ListContentTypesQuerySchema>;
 
 export const CreateCategoryRequestSchema = z.object({
   parentId: UuidSchema.optional(),
-  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   slug: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(120, vk(V.MAX_CHARS, { max: 120 }))
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, V.SLUG_PATTERN),
@@ -114,9 +114,9 @@ export type CreateCategoryRequest = z.infer<typeof CreateCategoryRequestSchema>;
 
 export const UpdateCategoryRequestSchema = z.object({
   parentId: UuidSchema.nullable().optional(),
-  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })).optional(),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })).optional(),
   slug: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(120, vk(V.MAX_CHARS, { max: 120 }))
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, V.SLUG_PATTERN)
@@ -155,7 +155,7 @@ export const CreateConnectivityDetailSchema = z.object({
 });
 
 export const CreateDigitalDetailSchema = z.object({
-  provider: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  provider: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
 });
 
 export const CreateRoamingDetailSchema = z.object({
@@ -172,8 +172,8 @@ export const CreateRoamingDetailSchema = z.object({
 });
 
 export const CreateDeviceDetailSchema = z.object({
-  brand: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
-  model: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  brand: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  model: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   storageGb: z.number().int(V.INTEGER).optional(),
   financingMonths: z
     .number()
@@ -189,7 +189,7 @@ export const CreateDeviceDetailSchema = z.object({
 
 export const CreateItemBenefitSchema = z.object({
   benefitTypeId: UuidSchema,
-  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   durationDays: z
     .number()
@@ -212,7 +212,7 @@ export const CreateAgeConditionSchema = z.object({
 });
 
 export const CreateLegalConditionSchema = z.object({
-  legalRequirement: z.string().min(1, V.REQUIRED),
+  legalRequirement: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
 });
 
@@ -231,8 +231,8 @@ export const CreateCatalogItemRequestSchema = z.object({
   contractTypeId: UuidSchema,
   segmentId: UuidSchema,
   tierId: UuidSchema,
-  name: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
-  description: z.string().min(1, V.REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
+  description: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
   price: z.number({ error: V.REQUIRED }).min(0, V.NON_NEGATIVE),
   activationCode: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   isActive: z.boolean().default(true),
@@ -260,7 +260,7 @@ export const UpdateCatalogItemRequestSchema = z.object({
   contractTypeId: UuidSchema.optional(),
   segmentId: UuidSchema.optional(),
   tierId: UuidSchema.optional(),
-  name: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })).optional(),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })).optional(),
   description: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
   price: z.number().min(0, V.NON_NEGATIVE).optional(),
   activationCode: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
@@ -306,7 +306,7 @@ export type ListCatalogItemsQuery = z.infer<typeof ListCatalogItemsQuerySchema>;
 // ============================================================================
 
 export const CreateContentBlockRequestSchema = z.object({
-  contentKey: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  contentKey: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   contentTypeId: UuidSchema,
   title: z.string().max(200, vk(V.MAX_CHARS, { max: 200 })).optional(),
   body: z.string().max(10000, vk(V.MAX_CHARS, { max: 10000 })).optional(),
@@ -316,7 +316,7 @@ export type CreateContentBlockRequest = z.infer<typeof CreateContentBlockRequest
 
 export const UpdateContentBlockRequestSchema = z.object({
   contentKey: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(100, vk(V.MAX_CHARS, { max: 100 }))
     .optional(),
@@ -340,7 +340,7 @@ export type ListContentBlocksQuery = z.infer<typeof ListContentBlocksQuerySchema
 
 export const CreateContactRequestSchema = z.object({
   itemId: UuidSchema.optional(),
-  clientName: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  clientName: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   clientEmail: EmailSchema,
   clientPhone: PhoneSchema.optional(),
   message: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),

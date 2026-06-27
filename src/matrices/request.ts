@@ -31,19 +31,19 @@ export const CreateMatrixAttachmentRequestSchema = z.object({
   attachmentType: AttachmentTypeSchema,
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   filename: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(255, vk(V.MAX_CHARS, { max: 255 })),
-  fileExtension: z.string().min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
+  fileExtension: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
   fileSizeMb: z
     .number()
     .min(0.01, vk(V.FILE_MIN_SIZE, { min: 0.01 }))
     .max(50, vk(V.FILE_MAX_SIZE, { max: 50 })),
   storagePath: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(500, vk(V.MAX_CHARS, { max: 500 })),
-  mimeType: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  mimeType: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   encryptionMetadata: z.record(z.string(), z.unknown()).optional(),
 });
 export type CreateMatrixAttachmentRequest = z.infer<typeof CreateMatrixAttachmentRequestSchema>;
@@ -62,7 +62,7 @@ export const ReviewOfferMatrixRequestSchema = z.discriminatedUnion('decision', [
   }),
   z.object({
     decision: z.literal('rejected'),
-    rejectionReason: z.string().min(1, V.REJECTION_REASON_REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
+    rejectionReason: z.string({ error: V.REJECTION_REASON_REQUIRED }).min(1, V.REJECTION_REASON_REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
     notes: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
   }),
 ]);

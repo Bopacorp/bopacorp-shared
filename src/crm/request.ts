@@ -13,8 +13,8 @@ import { TierCodeSchema } from '../reports/enums.js';
 // --- Lookup: Negotiation States ---
 
 export const CreateNegotiationStateRequestSchema = z.object({
-  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().default(true),
 });
@@ -32,8 +32,8 @@ export type ListNegotiationStatesQuery = z.infer<typeof ListNegotiationStatesQue
 // --- Lookup: Visit Types ---
 
 export const CreateVisitTypeRequestSchema = z.object({
-  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  code: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().default(true),
 });
@@ -54,11 +54,11 @@ export const CreateBusinessClientRequestSchema = z.object({
   advisorId: UuidSchema.optional(),
   ruc: RucSchema,
   businessName: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(200, vk(V.MAX_CHARS, { max: 200 })),
   contactName: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(200, vk(V.MAX_CHARS, { max: 200 })),
   contactPhone: PhoneSchema.optional(),
@@ -125,7 +125,7 @@ export const CreateVisitRequestSchema = z.object({
   advisorId: UuidSchema,
   visitTypeId: UuidSchema,
   visitDate: z.string().datetime(V.DATETIME_INVALID),
-  observations: z.string().min(1, V.REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
+  observations: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
   gpsLatitude: z.number().optional(),
   gpsLongitude: z.number().optional(),
   gpsAccuracy: z.number().optional(),

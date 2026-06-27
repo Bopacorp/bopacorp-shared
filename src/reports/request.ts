@@ -6,7 +6,7 @@ import { ReportTypeSchema } from './enums.js';
 // --- Sales Targets ---
 
 export const UpdateSalesTargetRequestSchema = z.object({
-  tierLabel: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  tierLabel: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   minBilling: z.number().min(0, V.NON_NEGATIVE).optional(),
   maxBilling: z.number().min(0, V.NON_NEGATIVE).nullable().optional(),
   minCloses: z.number({ error: V.REQUIRED }).int(V.INTEGER).min(0, V.NON_NEGATIVE).optional(),
@@ -19,21 +19,21 @@ export type UpdateSalesTargetRequest = z.infer<typeof UpdateSalesTargetRequestSc
 export const CreateReportExportRequestSchema = z.object({
   generatedBy: UuidSchema,
   reportType: ReportTypeSchema,
-  title: z.string().min(1, V.REQUIRED).max(255, vk(V.MAX_CHARS, { max: 255 })),
+  title: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(255, vk(V.MAX_CHARS, { max: 255 })),
   filename: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(255, vk(V.MAX_CHARS, { max: 255 })),
-  fileExtension: z.string().min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
+  fileExtension: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
   fileSizeMb: z
     .number()
     .min(0.01, vk(V.FILE_MIN_SIZE, { min: 0.01 }))
     .max(50, vk(V.FILE_MAX_SIZE, { max: 50 })),
   storagePath: z
-    .string()
+    .string({ error: V.REQUIRED })
     .min(1, V.REQUIRED)
     .max(500, vk(V.MAX_CHARS, { max: 500 })),
-  mimeType: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  mimeType: z.string({ error: V.REQUIRED }).min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   generatedAt: z.string().datetime(V.DATETIME_INVALID).optional(),
 });
 export type CreateReportExportRequest = z.infer<typeof CreateReportExportRequestSchema>;
