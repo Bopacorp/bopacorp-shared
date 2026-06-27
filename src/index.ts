@@ -9,3 +9,4 @@ export * from './employability/index.js';
 export * from './matrices/index.js';
 export * from './notifications/index.js';
 export * from './reports/index.js';
+export * from './i18n/index.js';

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { V, vk } from '../i18n/keys.js';
 import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { ReportTypeSchema } from './enums.js';
 
@@ -7,13 +8,13 @@ import { ReportTypeSchema } from './enums.js';
 export const CreateSalesObjectiveRequestSchema = z.object({
   createdBy: UuidSchema,
   advisorId: UuidSchema.optional(),
-  targetSalesAmount: z.number().min(0, 'El monto objetivo no puede ser negativo'),
+  targetSalesAmount: z.number().min(0, V.NON_NEGATIVE),
   targetClosedDeals: z
     .number()
-    .int('Debe ser un número entero')
-    .min(0, 'El número de tratos no puede ser negativo'),
-  periodStart: z.string().date('La fecha de inicio no es válida'),
-  periodEnd: z.string().date('La fecha de fin no es válida'),
+    .int(V.INTEGER)
+    .min(0, V.NON_NEGATIVE),
+  periodStart: z.string().date(V.DATE_INVALID),
+  periodEnd: z.string().date(V.DATE_INVALID),
 });
 export type CreateSalesObjectiveRequest = z.infer<typeof CreateSalesObjectiveRequestSchema>;
 
@@ -23,8 +24,8 @@ export type UpdateSalesObjectiveRequest = z.infer<typeof UpdateSalesObjectiveReq
 export const ListSalesObjectivesQuerySchema = PaginationQuerySchema.extend({
   createdBy: UuidSchema.optional(),
   advisorId: UuidSchema.optional(),
-  periodStart: z.string().date('La fecha de inicio no es válida').optional(),
-  periodEnd: z.string().date('La fecha de fin no es válida').optional(),
+  periodStart: z.string().date(V.DATE_INVALID).optional(),
+  periodEnd: z.string().date(V.DATE_INVALID).optional(),
 });
 export type ListSalesObjectivesQuery = z.infer<typeof ListSalesObjectivesQuerySchema>;
 
@@ -33,22 +34,22 @@ export type ListSalesObjectivesQuery = z.infer<typeof ListSalesObjectivesQuerySc
 export const CreateReportExportRequestSchema = z.object({
   generatedBy: UuidSchema,
   reportType: ReportTypeSchema,
-  title: z.string().min(1, 'El título es obligatorio').max(255, 'Máximo 255 caracteres'),
+  title: z.string().min(1, V.REQUIRED).max(255, vk(V.MAX_CHARS, { max: 255 })),
   filename: z
     .string()
-    .min(1, 'El nombre del archivo es obligatorio')
-    .max(255, 'Máximo 255 caracteres'),
-  fileExtension: z.string().min(1, 'La extensión es obligatoria').max(10, 'Máximo 10 caracteres'),
+    .min(1, V.REQUIRED)
+    .max(255, vk(V.MAX_CHARS, { max: 255 })),
+  fileExtension: z.string().min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
   fileSizeMb: z
     .number()
-    .min(0.01, 'El archivo debe pesar al menos 0.01 MB')
-    .max(50, 'El archivo debe pesar menos de 50 MB'),
+    .min(0.01, vk(V.FILE_MIN_SIZE, { min: 0.01 }))
+    .max(50, vk(V.FILE_MAX_SIZE, { max: 50 })),
   storagePath: z
     .string()
-    .min(1, 'La ruta de almacenamiento es obligatoria')
-    .max(500, 'Máximo 500 caracteres'),
-  mimeType: z.string().min(1, 'El tipo MIME es obligatorio').max(100, 'Máximo 100 caracteres'),
-  generatedAt: z.string().datetime('La fecha de generación no es válida').optional(),
+    .min(1, V.REQUIRED)
+    .max(500, vk(V.MAX_CHARS, { max: 500 })),
+  mimeType: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  generatedAt: z.string().datetime(V.DATETIME_INVALID).optional(),
 });
 export type CreateReportExportRequest = z.infer<typeof CreateReportExportRequestSchema>;
 

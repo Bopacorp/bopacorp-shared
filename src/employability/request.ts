@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { V, vk } from '../i18n/keys.js';
 import {
   BooleanQuerySchema,
   EcuadorianIdSchema,
@@ -13,11 +14,11 @@ import { ApplicationStateSchema } from './enums.js';
 
 export const CreateCandidateRequestSchema = z.object({
   nationalId: EcuadorianIdSchema,
-  firstName: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
-  lastName: z.string().min(1, 'El apellido es obligatorio').max(50, 'Máximo 50 caracteres'),
+  firstName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  lastName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   email: EmailSchema,
   phone: PhoneSchema.optional(),
-  address: z.string().max(255, 'La dirección no puede exceder 255 caracteres').optional(),
+  address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
 });
 export type CreateCandidateRequest = z.infer<typeof CreateCandidateRequestSchema>;
 
@@ -32,13 +33,13 @@ export type ListCandidatesQuery = z.infer<typeof ListCandidatesQuerySchema>;
 // --- Job vacancy management ---
 
 export const CreateJobVacancyRequestSchema = z.object({
-  title: z.string().min(1, 'El título es obligatorio').max(255, 'Máximo 255 caracteres'),
-  description: z.string().min(1, 'La descripción es obligatoria'),
-  requirements: z.string().min(1, 'Los requisitos son obligatorios'),
+  title: z.string().min(1, V.REQUIRED).max(255, vk(V.MAX_CHARS, { max: 255 })),
+  description: z.string().min(1, V.REQUIRED),
+  requirements: z.string().min(1, V.REQUIRED),
   isActive: z.boolean().default(true),
   isPublished: z.boolean().default(false),
-  publicationDate: z.string().datetime('La fecha de publicación no es válida').optional(),
-  closingDate: z.string().datetime('La fecha de cierre no es válida').optional(),
+  publicationDate: z.string().datetime(V.DATETIME_INVALID).optional(),
+  closingDate: z.string().datetime(V.DATETIME_INVALID).optional(),
 });
 export type CreateJobVacancyRequest = z.infer<typeof CreateJobVacancyRequestSchema>;
 
@@ -57,13 +58,13 @@ export type ListJobVacanciesQuery = z.infer<typeof ListJobVacanciesQuerySchema>;
 export const CreateJobApplicationRequestSchema = z.object({
   vacancyId: UuidSchema,
   candidateId: UuidSchema,
-  coverLetter: z.string().max(2000, 'Máximo 2000 caracteres').optional(),
+  coverLetter: z.string().max(2000, vk(V.MAX_CHARS, { max: 2000 })).optional(),
 });
 export type CreateJobApplicationRequest = z.infer<typeof CreateJobApplicationRequestSchema>;
 
 export const UpdateJobApplicationRequestSchema = z.object({
   state: ApplicationStateSchema.optional(),
-  reviewNotes: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
+  reviewNotes: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
 });
 export type UpdateJobApplicationRequest = z.infer<typeof UpdateJobApplicationRequestSchema>;
 
@@ -82,14 +83,14 @@ export const CreateCandidateResumeRequestSchema = z.object({
   applicationId: UuidSchema.optional(),
   filename: z
     .string()
-    .min(1, 'El nombre del archivo es obligatorio')
-    .max(255, 'Máximo 255 caracteres'),
-  fileExtension: z.string().min(1, 'La extensión es obligatoria').max(10, 'Máximo 10 caracteres'),
+    .min(1, V.REQUIRED)
+    .max(255, vk(V.MAX_CHARS, { max: 255 })),
+  fileExtension: z.string().min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
   fileSizeMb: z
     .number()
-    .positive('El archivo debe pesar más de 0 MB')
-    .max(50, 'El archivo debe pesar menos de 50 MB'),
-  mimeType: z.string().min(1, 'El tipo MIME es obligatorio').max(100, 'Máximo 100 caracteres'),
+    .positive(vk(V.FILE_MIN_SIZE, { min: 0 }))
+    .max(50, vk(V.FILE_MAX_SIZE, { max: 50 })),
+  mimeType: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
 });
 export type CreateCandidateResumeRequest = z.infer<typeof CreateCandidateResumeRequestSchema>;
 
@@ -104,14 +105,14 @@ export type ListCandidateResumesQuery = z.infer<typeof ListCandidateResumesQuery
 export const ApplyJobVacancyRequestSchema = z.object({
   candidate: z.object({
     nationalId: EcuadorianIdSchema,
-    firstName: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
-    lastName: z.string().min(1, 'El apellido es obligatorio').max(50, 'Máximo 50 caracteres'),
+    firstName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+    lastName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
     email: EmailSchema,
     phone: PhoneSchema.optional(),
-    address: z.string().max(255, 'La dirección no puede exceder 255 caracteres').optional(),
+    address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
   }),
   vacancyId: UuidSchema,
-  coverLetter: z.string().max(2000, 'Máximo 2000 caracteres').optional(),
+  coverLetter: z.string().max(2000, vk(V.MAX_CHARS, { max: 2000 })).optional(),
 });
 export type ApplyJobVacancyRequest = z.infer<typeof ApplyJobVacancyRequestSchema>;
 

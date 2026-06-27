@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { V, vk } from '../i18n/keys.js';
 import {
   BooleanQuerySchema,
   EcuadorianIdSchema,
@@ -10,29 +11,29 @@ import {
 export const UpdateProfileRequestSchema = z.object({
   firstName: z
     .string()
-    .min(1, 'El primer nombre es obligatorio')
-    .max(50, 'Máximo 50 caracteres')
+    .min(1, V.REQUIRED)
+    .max(50, vk(V.MAX_CHARS, { max: 50 }))
     .optional(),
-  secondName: z.string().max(50, 'Máximo 50 caracteres').optional(),
+  secondName: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   lastName: z
     .string()
-    .min(1, 'El apellido es obligatorio')
-    .max(50, 'Máximo 50 caracteres')
+    .min(1, V.REQUIRED)
+    .max(50, vk(V.MAX_CHARS, { max: 50 }))
     .optional(),
-  secondLastName: z.string().max(50, 'Máximo 50 caracteres').optional(),
+  secondLastName: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   nationalId: EcuadorianIdSchema.optional(),
   phone: PhoneSchema.optional(),
   avatarUrl: z
     .string()
-    .url('La URL no es válida')
-    .max(500, 'La URL no puede exceder 500 caracteres')
+    .url(V.URL_INVALID)
+    .max(500, vk(V.URL_MAX, { max: 500 }))
     .optional(),
-  address: z.string().max(255, 'La dirección no puede exceder 255 caracteres').optional(),
+  address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
 });
 export type UpdateProfileRequest = z.infer<typeof UpdateProfileRequestSchema>;
 
 export const AssignAdvisorSupervisorsRequestSchema = z.object({
-  supervisorIds: z.array(UuidSchema).min(1, 'Debe seleccionar al menos un supervisor'),
+  supervisorIds: z.array(UuidSchema).min(1, vk(V.MIN_ITEMS, { min: 1 })),
 });
 export type AssignAdvisorSupervisorsRequest = z.infer<typeof AssignAdvisorSupervisorsRequestSchema>;
 
@@ -51,15 +52,15 @@ export type UserIdParam = z.infer<typeof UserIdParamSchema>;
 // --- Department management ---
 
 export const CreateDepartmentRequestSchema = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(50, 'Máximo 50 caracteres'),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
+  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   isActive: z.boolean().default(true),
 });
 export type CreateDepartmentRequest = z.infer<typeof CreateDepartmentRequestSchema>;
 
 export const UpdateDepartmentRequestSchema = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(50, 'Máximo 50 caracteres').optional(),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres').optional(),
+  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   isActive: z.boolean().optional(),
 });
 export type UpdateDepartmentRequest = z.infer<typeof UpdateDepartmentRequestSchema>;
@@ -73,16 +74,16 @@ export type ListDepartmentsQuery = z.infer<typeof ListDepartmentsQuerySchema>;
 // --- Org role management ---
 
 export const CreateOrgRoleRequestSchema = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(50, 'Máximo 50 caracteres'),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
+  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   departmentId: UuidSchema.optional(),
   isActive: z.boolean().default(true),
 });
 export type CreateOrgRoleRequest = z.infer<typeof CreateOrgRoleRequestSchema>;
 
 export const UpdateOrgRoleRequestSchema = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(50, 'Máximo 50 caracteres').optional(),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres').optional(),
+  code: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   departmentId: UuidSchema.nullable().optional(),
   isActive: z.boolean().optional(),
 });
@@ -100,16 +101,16 @@ export type ListOrgRolesQuery = z.infer<typeof ListOrgRolesQuerySchema>;
 export const CreateEmployeeRequestSchema = z.object({
   userId: UuidSchema,
   orgRoleId: UuidSchema,
-  territory: z.string().max(100, 'Máximo 100 caracteres').optional(),
-  hiredAt: z.string().date('La fecha de contratación no es válida').optional(),
+  territory: z.string().max(100, vk(V.MAX_CHARS, { max: 100 })).optional(),
+  hiredAt: z.string().date(V.DATE_INVALID).optional(),
   isActive: z.boolean().default(true),
 });
 export type CreateEmployeeRequest = z.infer<typeof CreateEmployeeRequestSchema>;
 
 export const UpdateEmployeeRequestSchema = z.object({
   orgRoleId: UuidSchema.optional(),
-  territory: z.string().max(100, 'Máximo 100 caracteres').nullable().optional(),
-  hiredAt: z.string().date('La fecha de contratación no es válida').nullable().optional(),
+  territory: z.string().max(100, vk(V.MAX_CHARS, { max: 100 })).nullable().optional(),
+  hiredAt: z.string().date(V.DATE_INVALID).nullable().optional(),
   isActive: z.boolean().optional(),
 });
 export type UpdateEmployeeRequest = z.infer<typeof UpdateEmployeeRequestSchema>;

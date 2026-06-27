@@ -1,11 +1,12 @@
 import { z } from 'zod';
+import { V, vk } from '../i18n/keys.js';
 import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 
 export const CreateNotificationRequestSchema = z.object({
   recipientId: UuidSchema,
-  title: z.string().min(1, 'El título es obligatorio').max(200, 'Máximo 200 caracteres'),
-  message: z.string().min(1, 'El mensaje es obligatorio'),
-  referenceType: z.string().max(50, 'Máximo 50 caracteres').optional(),
+  title: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
+  message: z.string().min(1, V.REQUIRED),
+  referenceType: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   referenceId: UuidSchema.optional(),
 });
 export type CreateNotificationRequest = z.infer<typeof CreateNotificationRequestSchema>;

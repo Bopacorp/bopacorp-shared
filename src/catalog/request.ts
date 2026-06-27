@@ -6,22 +6,23 @@ import {
   PhoneSchema,
   UuidSchema,
 } from '../common/primitives.js';
+import { V, vk } from '../i18n/keys.js';
 
 // ============================================================================
 // Lookup tables — 7 tables with identical structure
 // ============================================================================
 
 const lookupCreate = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(30, 'Máximo 30 caracteres'),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().default(true),
 });
 
 const lookupUpdate = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(30, 'Máximo 30 caracteres').optional(),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres').optional(),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })).optional(),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().optional(),
 });
 
@@ -99,13 +100,13 @@ export type ListContentTypesQuery = z.infer<typeof ListContentTypesQuerySchema>;
 
 export const CreateCategoryRequestSchema = z.object({
   parentId: UuidSchema.optional(),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
+  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   slug: z
     .string()
-    .min(1, 'El slug es obligatorio')
-    .max(120, 'Máximo 120 caracteres')
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Solo letras minúsculas, números y guiones'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+    .min(1, V.REQUIRED)
+    .max(120, vk(V.MAX_CHARS, { max: 120 }))
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, V.SLUG_PATTERN),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   sortOrder: z.number().int().default(0),
   isActive: z.boolean().default(true),
 });
@@ -113,14 +114,14 @@ export type CreateCategoryRequest = z.infer<typeof CreateCategoryRequestSchema>;
 
 export const UpdateCategoryRequestSchema = z.object({
   parentId: UuidSchema.nullable().optional(),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres').optional(),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   slug: z
     .string()
-    .min(1, 'El slug es obligatorio')
-    .max(120, 'Máximo 120 caracteres')
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Solo letras minúsculas, números y guiones')
+    .min(1, V.REQUIRED)
+    .max(120, vk(V.MAX_CHARS, { max: 120 }))
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, V.SLUG_PATTERN)
     .optional(),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   sortOrder: z.number().int().optional(),
   isActive: z.boolean().optional(),
 });
@@ -138,48 +139,48 @@ export type ListCategoriesQuery = z.infer<typeof ListCategoriesQuerySchema>;
 // ============================================================================
 
 export const CreateVoiceDetailSchema = z.object({
-  gigasStructural: z.number().int('Debe ser un número entero'),
-  gigasLoyalty: z.number().int('Debe ser un número entero').default(0),
-  minutesNational: z.number().int('Debe ser un número entero').optional(),
-  minutesLdi: z.number().int('Debe ser un número entero').default(0),
-  sms: z.number().int('Debe ser un número entero').default(0),
+  gigasStructural: z.number().int(V.INTEGER),
+  gigasLoyalty: z.number().int(V.INTEGER).default(0),
+  minutesNational: z.number().int(V.INTEGER).optional(),
+  minutesLdi: z.number().int(V.INTEGER).default(0),
+  sms: z.number().int(V.INTEGER).default(0),
   hasUnlimitedMinutes: z.boolean().default(false),
   hasUnlimitedWhatsapp: z.boolean().default(true),
   hasSocialNetworks: z.boolean().default(false),
-  includedRoamingGb: z.number().min(0, 'No puede ser negativo').default(0),
+  includedRoamingGb: z.number().min(0, V.NON_NEGATIVE).default(0),
 });
 
 export const CreateConnectivityDetailSchema = z.object({
-  bandwidthMbps: z.number().min(0, 'El ancho de banda no puede ser negativo'),
+  bandwidthMbps: z.number().min(0, V.NON_NEGATIVE),
 });
 
 export const CreateDigitalDetailSchema = z.object({
-  provider: z.string().min(1, 'El proveedor es obligatorio').max(50, 'Máximo 50 caracteres'),
+  provider: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
 });
 
 export const CreateRoamingDetailSchema = z.object({
   geoZoneId: UuidSchema,
   dataMb: z
     .number()
-    .int('Debe ser un número entero')
-    .positive('Debe ser un número entero positivo'),
+    .int(V.INTEGER)
+    .positive(V.POSITIVE),
   durationDays: z
     .number()
-    .int('Debe ser un número entero')
-    .positive('Debe ser un número entero positivo'),
+    .int(V.INTEGER)
+    .positive(V.POSITIVE),
   hasThrottle: z.boolean().default(false),
 });
 
 export const CreateDeviceDetailSchema = z.object({
-  brand: z.string().min(1, 'La marca es obligatoria').max(50, 'Máximo 50 caracteres'),
-  model: z.string().min(1, 'El modelo es obligatorio').max(50, 'Máximo 50 caracteres'),
-  storageGb: z.number().int('Debe ser un número entero').optional(),
+  brand: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  model: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  storageGb: z.number().int(V.INTEGER).optional(),
   financingMonths: z
     .number()
-    .int('Debe ser un número entero')
-    .positive('Debe ser un número entero positivo')
+    .int(V.INTEGER)
+    .positive(V.POSITIVE)
     .optional(),
-  financingMonthly: z.number().min(0, 'El valor no puede ser negativo').optional(),
+  financingMonthly: z.number().min(0, V.NON_NEGATIVE).optional(),
 });
 
 // ============================================================================
@@ -188,12 +189,12 @@ export const CreateDeviceDetailSchema = z.object({
 
 export const CreateItemBenefitSchema = z.object({
   benefitTypeId: UuidSchema,
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   durationDays: z
     .number()
-    .int('Debe ser un número entero')
-    .positive('Debe ser un número entero positivo')
+    .int(V.INTEGER)
+    .positive(V.POSITIVE)
     .optional(),
 });
 
@@ -202,17 +203,17 @@ export const CreateItemBenefitSchema = z.object({
 // ============================================================================
 
 export const CreateAgeConditionSchema = z.object({
-  minAge: z.number().int('Debe ser un número entero').min(0, 'La edad no puede ser negativa'),
+  minAge: z.number().int(V.INTEGER).min(0, V.NON_NEGATIVE),
   maxAge: z
     .number()
-    .int('Debe ser un número entero')
-    .min(0, 'La edad no puede ser negativa')
+    .int(V.INTEGER)
+    .min(0, V.NON_NEGATIVE)
     .optional(),
 });
 
 export const CreateLegalConditionSchema = z.object({
-  legalRequirement: z.string().min(1, 'El requisito legal es obligatorio'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  legalRequirement: z.string().min(1, V.REQUIRED),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
 });
 
 export const CreateTemporalConditionSchema = z.object({
@@ -230,16 +231,16 @@ export const CreateCatalogItemRequestSchema = z.object({
   contractTypeId: UuidSchema,
   segmentId: UuidSchema,
   tierId: UuidSchema,
-  name: z.string().min(1, 'El nombre es obligatorio').max(200, 'Máximo 200 caracteres'),
-  description: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
-  price: z.number().min(0, 'El precio no puede ser negativo'),
-  activationCode: z.string().max(50, 'Máximo 50 caracteres').optional(),
+  name: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
+  description: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
+  price: z.number().min(0, V.NON_NEGATIVE),
+  activationCode: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   isActive: z.boolean().default(true),
   isPublished: z.boolean().default(false),
   permanenceMonths: z
     .number()
-    .int('Debe ser un número entero')
-    .min(0, 'Los meses de permanencia no pueden ser negativos')
+    .int(V.INTEGER)
+    .min(0, V.PERMANENCE_NON_NEGATIVE)
     .default(0),
   voiceDetails: CreateVoiceDetailSchema.optional(),
   connectivityDetails: CreateConnectivityDetailSchema.optional(),
@@ -259,16 +260,16 @@ export const UpdateCatalogItemRequestSchema = z.object({
   contractTypeId: UuidSchema.optional(),
   segmentId: UuidSchema.optional(),
   tierId: UuidSchema.optional(),
-  name: z.string().min(1, 'El nombre es obligatorio').max(200, 'Máximo 200 caracteres').optional(),
-  description: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
-  price: z.number().min(0, 'El precio no puede ser negativo').optional(),
-  activationCode: z.string().max(50, 'Máximo 50 caracteres').optional(),
+  name: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })).optional(),
+  description: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
+  price: z.number().min(0, V.NON_NEGATIVE).optional(),
+  activationCode: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   isActive: z.boolean().optional(),
   isPublished: z.boolean().optional(),
   permanenceMonths: z
     .number()
-    .int('Debe ser un número entero')
-    .min(0, 'Los meses de permanencia no pueden ser negativos')
+    .int(V.INTEGER)
+    .min(0, V.PERMANENCE_NON_NEGATIVE)
     .optional(),
   voiceDetails: CreateVoiceDetailSchema.optional(),
   connectivityDetails: CreateConnectivityDetailSchema.optional(),
@@ -305,10 +306,10 @@ export type ListCatalogItemsQuery = z.infer<typeof ListCatalogItemsQuerySchema>;
 // ============================================================================
 
 export const CreateContentBlockRequestSchema = z.object({
-  contentKey: z.string().min(1, 'La clave es obligatoria').max(100, 'Máximo 100 caracteres'),
+  contentKey: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   contentTypeId: UuidSchema,
-  title: z.string().max(200, 'Máximo 200 caracteres').optional(),
-  body: z.string().max(10000, 'Máximo 10000 caracteres').optional(),
+  title: z.string().max(200, vk(V.MAX_CHARS, { max: 200 })).optional(),
+  body: z.string().max(10000, vk(V.MAX_CHARS, { max: 10000 })).optional(),
   sortOrder: z.number().int().default(0),
 });
 export type CreateContentBlockRequest = z.infer<typeof CreateContentBlockRequestSchema>;
@@ -316,12 +317,12 @@ export type CreateContentBlockRequest = z.infer<typeof CreateContentBlockRequest
 export const UpdateContentBlockRequestSchema = z.object({
   contentKey: z
     .string()
-    .min(1, 'La clave es obligatoria')
-    .max(100, 'Máximo 100 caracteres')
+    .min(1, V.REQUIRED)
+    .max(100, vk(V.MAX_CHARS, { max: 100 }))
     .optional(),
   contentTypeId: UuidSchema.optional(),
-  title: z.string().max(200, 'Máximo 200 caracteres').optional(),
-  body: z.string().max(10000, 'Máximo 10000 caracteres').optional(),
+  title: z.string().max(200, vk(V.MAX_CHARS, { max: 200 })).optional(),
+  body: z.string().max(10000, vk(V.MAX_CHARS, { max: 10000 })).optional(),
   sortOrder: z.number().int().optional(),
 });
 export type UpdateContentBlockRequest = z.infer<typeof UpdateContentBlockRequestSchema>;
@@ -339,10 +340,10 @@ export type ListContentBlocksQuery = z.infer<typeof ListContentBlocksQuerySchema
 
 export const CreateContactRequestSchema = z.object({
   itemId: UuidSchema.optional(),
-  clientName: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
+  clientName: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
   clientEmail: EmailSchema,
   clientPhone: PhoneSchema.optional(),
-  message: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
+  message: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
 });
 export type CreateContactRequest = z.infer<typeof CreateContactRequestSchema>;
 

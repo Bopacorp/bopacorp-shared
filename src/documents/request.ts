@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { V, vk } from '../i18n/keys.js';
 import { BooleanQuerySchema, PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
 import { EncryptionMetadataSchema } from '../document-uploads/enums.js';
 import { DocumentStateSchema } from './enums.js';
@@ -6,9 +7,9 @@ import { DocumentStateSchema } from './enums.js';
 // --- Document Types ---
 
 export const CreateDocumentTypeRequestSchema = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(30, 'Máximo 30 caracteres'),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isMandatory: z.boolean().default(false),
   isActive: z.boolean().default(true),
 });
@@ -31,19 +32,19 @@ export const CreateNegotiationDocumentRequestSchema = z.object({
   documentTypeId: UuidSchema,
   filename: z
     .string()
-    .min(1, 'El nombre del archivo es obligatorio')
-    .max(255, 'Máximo 255 caracteres'),
-  fileExtension: z.string().min(1, 'La extensión es obligatoria').max(10, 'Máximo 10 caracteres'),
+    .min(1, V.REQUIRED)
+    .max(255, vk(V.MAX_CHARS, { max: 255 })),
+  fileExtension: z.string().min(1, V.REQUIRED).max(10, vk(V.MAX_CHARS, { max: 10 })),
   fileSizeMb: z
     .number()
-    .min(0.01, 'El archivo debe pesar al menos 0.01 MB')
-    .max(50, 'El archivo debe pesar menos de 50 MB'),
+    .min(0.01, vk(V.FILE_MIN_SIZE, { min: 0.01 }))
+    .max(50, vk(V.FILE_MAX_SIZE, { max: 50 })),
   storagePath: z
     .string()
-    .min(1, 'La ruta de almacenamiento es obligatoria')
-    .max(500, 'Máximo 500 caracteres'),
-  mimeType: z.string().min(1, 'El tipo MIME es obligatorio').max(100, 'Máximo 100 caracteres'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+    .min(1, V.REQUIRED)
+    .max(500, vk(V.MAX_CHARS, { max: 500 })),
+  mimeType: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   encryptionMetadata: EncryptionMetadataSchema,
 });
 export type CreateNegotiationDocumentRequest = z.infer<
@@ -54,18 +55,18 @@ export const UpdateNegotiationDocumentRequestSchema = z
   .object({
     filename: z
       .string()
-      .min(1, 'El nombre del archivo es obligatorio')
-      .max(255, 'Máximo 255 caracteres')
+      .min(1, V.REQUIRED)
+      .max(255, vk(V.MAX_CHARS, { max: 255 }))
       .optional(),
     storagePath: z
       .string()
-      .min(1, 'La ruta de almacenamiento es obligatoria')
-      .max(500, 'Máximo 500 caracteres')
+      .min(1, V.REQUIRED)
+      .max(500, vk(V.MAX_CHARS, { max: 500 }))
       .optional(),
     mimeType: z
       .string()
-      .min(1, 'El tipo MIME es obligatorio')
-      .max(100, 'Máximo 100 caracteres')
+      .min(1, V.REQUIRED)
+      .max(100, vk(V.MAX_CHARS, { max: 100 }))
       .optional(),
   })
   .strict();
@@ -85,7 +86,7 @@ export type ListNegotiationDocumentsQuery = z.infer<typeof ListNegotiationDocume
 
 export const ChangeDocumentStateRequestSchema = z.object({
   state: DocumentStateSchema,
-  coordinatorMessage: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
+  coordinatorMessage: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
 });
 export type ChangeDocumentStateRequest = z.infer<typeof ChangeDocumentStateRequestSchema>;
 

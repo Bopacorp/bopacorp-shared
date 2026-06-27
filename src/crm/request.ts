@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { V, vk } from '../i18n/keys.js';
 import {
   BooleanQuerySchema,
   EmailSchema,
@@ -11,9 +12,9 @@ import {
 // --- Lookup: Negotiation States ---
 
 export const CreateNegotiationStateRequestSchema = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(30, 'Máximo 30 caracteres'),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().default(true),
 });
 export type CreateNegotiationStateRequest = z.infer<typeof CreateNegotiationStateRequestSchema>;
@@ -30,9 +31,9 @@ export type ListNegotiationStatesQuery = z.infer<typeof ListNegotiationStatesQue
 // --- Lookup: Visit Types ---
 
 export const CreateVisitTypeRequestSchema = z.object({
-  code: z.string().min(1, 'El código es obligatorio').max(30, 'Máximo 30 caracteres'),
-  name: z.string().min(1, 'El nombre es obligatorio').max(50, 'Máximo 50 caracteres'),
-  description: z.string().max(255, 'Máximo 255 caracteres').optional(),
+  code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })),
+  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
+  description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().default(true),
 });
 export type CreateVisitTypeRequest = z.infer<typeof CreateVisitTypeRequestSchema>;
@@ -53,21 +54,21 @@ export const CreateBusinessClientRequestSchema = z.object({
   ruc: RucSchema,
   businessName: z
     .string()
-    .min(1, 'La razón social es obligatoria')
-    .max(200, 'Máximo 200 caracteres'),
+    .min(1, V.REQUIRED)
+    .max(200, vk(V.MAX_CHARS, { max: 200 })),
   contactName: z
     .string()
-    .min(1, 'El nombre del contacto es obligatorio')
-    .max(100, 'Máximo 100 caracteres'),
+    .min(1, V.REQUIRED)
+    .max(200, vk(V.MAX_CHARS, { max: 200 })),
   contactPhone: PhoneSchema.optional(),
   contactEmail: EmailSchema.optional(),
-  address: z.string().max(255, 'La dirección no puede exceder 255 caracteres').optional(),
+  address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
   activeServicesCount: z
     .number()
-    .int('Debe ser un número entero')
-    .min(0, 'El número de servicios no puede ser negativo')
+    .int(V.INTEGER)
+    .min(0, V.NON_NEGATIVE)
     .default(0),
-  currentMonthlyBilling: z.number().min(0, 'La facturación no puede ser negativa').default(0),
+  currentMonthlyBilling: z.number().min(0, V.NON_NEGATIVE).default(0),
   isActive: z.boolean().default(true),
 });
 export type CreateBusinessClientRequest = z.infer<typeof CreateBusinessClientRequestSchema>;
@@ -88,9 +89,9 @@ export const CreateNegotiationRequestSchema = z.object({
   clientId: UuidSchema,
   advisorId: UuidSchema,
   stateId: UuidSchema,
-  startDate: z.string().date('La fecha de inicio no es válida').optional(),
-  estimatedCloseDate: z.string().date('La fecha estimada de cierre no es válida').optional(),
-  observations: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
+  startDate: z.string().date(V.DATE_INVALID).optional(),
+  estimatedCloseDate: z.string().date(V.DATE_INVALID).optional(),
+  observations: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
   isActive: z.boolean().default(true),
 });
 export type CreateNegotiationRequest = z.infer<typeof CreateNegotiationRequestSchema>;
@@ -100,7 +101,7 @@ export type UpdateNegotiationRequest = z.infer<typeof UpdateNegotiationRequestSc
 
 export const ChangeNegotiationStateRequestSchema = z.object({
   stateId: UuidSchema,
-  notes: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
+  notes: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
 });
 export type ChangeNegotiationStateRequest = z.infer<typeof ChangeNegotiationStateRequestSchema>;
 
@@ -120,12 +121,12 @@ export const CreateVisitRequestSchema = z.object({
   clientId: UuidSchema,
   advisorId: UuidSchema,
   visitTypeId: UuidSchema,
-  visitDate: z.string().datetime('La fecha de visita no es válida'),
-  observations: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
+  visitDate: z.string().datetime(V.DATETIME_INVALID),
+  observations: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
   gpsLatitude: z.number().optional(),
   gpsLongitude: z.number().optional(),
   gpsAccuracy: z.number().optional(),
-  gpsTimestamp: z.string().datetime('La fecha GPS no es válida').optional(),
+  gpsTimestamp: z.string().datetime(V.DATETIME_INVALID).optional(),
 });
 export type CreateVisitRequest = z.infer<typeof CreateVisitRequestSchema>;
 
@@ -133,7 +134,7 @@ export const UpdateVisitRequestSchema = CreateVisitRequestSchema.partial();
 export type UpdateVisitRequest = z.infer<typeof UpdateVisitRequestSchema>;
 
 export const VerifyVisitRequestSchema = z.object({
-  supervisorComment: z.string().max(1000, 'Máximo 1000 caracteres').optional(),
+  supervisorComment: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
   isVerified: z.boolean().default(true),
 });
 export type VerifyVisitRequest = z.infer<typeof VerifyVisitRequestSchema>;
