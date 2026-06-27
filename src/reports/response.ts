@@ -94,6 +94,13 @@ export type ReportExportListItemResponse = z.infer<typeof ReportExportListItemRe
 
 // --- Advisor Metrics ---
 
+const StateCountSchema = z.object({
+  stateId: UuidSchema,
+  stateCode: z.string(),
+  stateName: z.string(),
+  count: z.number().int(),
+});
+
 export const AdvisorMetricResponseSchema = z.object({
   advisor: z.object({
     id: UuidSchema,
@@ -105,10 +112,7 @@ export const AdvisorMetricResponseSchema = z.object({
       })
       .nullable(),
   }),
-  clientsContacted: z.number().int(),
-  clientsInNegotiation: z.number().int(),
-  clientsClosed: z.number().int(),
-  clientsPostSale: z.number().int(),
+  stateCounts: z.array(StateCountSchema),
   clientsVisited: z.number().int(),
   totalBilledAmount: z.number(),
   averageBillingPerService: z.number(),
