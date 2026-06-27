@@ -90,7 +90,7 @@ export type ListBusinessClientsQuery = z.infer<typeof ListBusinessClientsQuerySc
 export const CreateNegotiationRequestSchema = z.object({
   clientId: UuidSchema,
   advisorId: UuidSchema,
-  stateId: UuidSchema,
+  stateId: UuidSchema.optional(),
   startDate: z.string().date(V.DATE_INVALID).optional(),
   estimatedCloseDate: z.string().date(V.DATE_INVALID).optional(),
   observations: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
