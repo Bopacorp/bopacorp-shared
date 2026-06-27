@@ -8,9 +8,11 @@ import { ReportTypeSchema } from './enums.js';
 export const CreateSalesObjectiveRequestSchema = z.object({
   createdBy: UuidSchema,
   advisorId: UuidSchema.optional(),
-  targetSalesAmount: z.number().min(0, V.NON_NEGATIVE),
+  targetSalesAmount: z
+    .number({ error: V.REQUIRED })
+    .min(0, V.NON_NEGATIVE),
   targetClosedDeals: z
-    .number()
+    .number({ error: V.REQUIRED })
     .int(V.INTEGER)
     .min(0, V.NON_NEGATIVE),
   periodStart: z.string().date(V.DATE_INVALID),

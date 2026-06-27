@@ -139,7 +139,7 @@ export type ListCategoriesQuery = z.infer<typeof ListCategoriesQuerySchema>;
 // ============================================================================
 
 export const CreateVoiceDetailSchema = z.object({
-  gigasStructural: z.number().int(V.INTEGER),
+  gigasStructural: z.number({ error: V.REQUIRED }).int(V.INTEGER),
   gigasLoyalty: z.number().int(V.INTEGER).default(0),
   minutesNational: z.number().int(V.INTEGER).optional(),
   minutesLdi: z.number().int(V.INTEGER).default(0),
@@ -151,7 +151,7 @@ export const CreateVoiceDetailSchema = z.object({
 });
 
 export const CreateConnectivityDetailSchema = z.object({
-  bandwidthMbps: z.number().min(0, V.NON_NEGATIVE),
+  bandwidthMbps: z.number({ error: V.REQUIRED }).min(0, V.NON_NEGATIVE),
 });
 
 export const CreateDigitalDetailSchema = z.object({
@@ -203,7 +203,7 @@ export const CreateItemBenefitSchema = z.object({
 // ============================================================================
 
 export const CreateAgeConditionSchema = z.object({
-  minAge: z.number().int(V.INTEGER).min(0, V.NON_NEGATIVE),
+  minAge: z.number({ error: V.REQUIRED }).int(V.INTEGER).min(0, V.NON_NEGATIVE),
   maxAge: z
     .number()
     .int(V.INTEGER)
@@ -233,7 +233,7 @@ export const CreateCatalogItemRequestSchema = z.object({
   tierId: UuidSchema,
   name: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
   description: z.string().min(1, V.REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
-  price: z.number().min(0, V.NON_NEGATIVE),
+  price: z.number({ error: V.REQUIRED }).min(0, V.NON_NEGATIVE),
   activationCode: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   isActive: z.boolean().default(true),
   isPublished: z.boolean().default(false),

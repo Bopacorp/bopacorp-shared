@@ -64,10 +64,12 @@ export const CreateBusinessClientRequestSchema = z.object({
   contactEmail: EmailSchema.optional(),
   address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
   activeServicesCount: z
-    .number()
+    .number({ error: V.REQUIRED })
     .int(V.INTEGER)
     .min(0, V.NON_NEGATIVE),
-  currentMonthlyBilling: z.number().min(0, V.NON_NEGATIVE),
+  currentMonthlyBilling: z
+    .number({ error: V.REQUIRED })
+    .min(0, V.NON_NEGATIVE),
   isActive: z.boolean().default(true),
 });
 export type CreateBusinessClientRequest = z.infer<typeof CreateBusinessClientRequestSchema>;
