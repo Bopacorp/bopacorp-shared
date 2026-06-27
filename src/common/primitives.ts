@@ -1,7 +1,12 @@
 import { z } from 'zod';
 import { V, vk } from '../i18n/keys.js';
 
-export const UuidSchema = z.uuid();
+export const UuidSchema = z.uuid({
+  error: (iss) => {
+    if (iss.code === 'invalid_type' || iss.input === '') return V.REQUIRED;
+    return V.UUID_INVALID;
+  },
+});
 
 export const EmailSchema = z
   .email(V.EMAIL_INVALID)

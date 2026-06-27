@@ -39,6 +39,8 @@ export const V = {
 
   BOOLEAN_INVALID: 'validation.boolean.invalid',
 
+  UUID_INVALID: 'validation.uuid.invalid',
+
   SLUG_PATTERN: 'validation.slug.pattern',
 
   PAGINATION_PAGE_INT: 'validation.pagination.page_integer',

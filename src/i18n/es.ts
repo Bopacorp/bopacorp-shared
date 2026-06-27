@@ -41,6 +41,8 @@ export const es = {
 
   [V.BOOLEAN_INVALID]: 'El valor debe ser true o false',
 
+  [V.UUID_INVALID]: 'Identificador no válido',
+
   [V.SLUG_PATTERN]: 'Solo letras minúsculas, números y guiones',
 
   [V.PAGINATION_PAGE_INT]: 'La página debe ser un número entero',

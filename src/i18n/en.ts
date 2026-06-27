@@ -42,6 +42,8 @@ export const en: LocaleMessages = {
 
   [V.BOOLEAN_INVALID]: 'Value must be true or false',
 
+  [V.UUID_INVALID]: 'Invalid identifier',
+
   [V.SLUG_PATTERN]: 'Only lowercase letters, numbers, and hyphens',
 
   [V.PAGINATION_PAGE_INT]: 'Page must be an integer',
