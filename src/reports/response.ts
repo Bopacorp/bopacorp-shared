@@ -112,5 +112,17 @@ export const AdvisorMetricResponseSchema = z.object({
   clientsVisited: z.number().int(),
   totalBilledAmount: z.number(),
   averageBillingPerService: z.number(),
+  avgDaysToClose: z.number().nullable(),
 });
 export type AdvisorMetricResponse = z.infer<typeof AdvisorMetricResponseSchema>;
+
+// --- Recent Activity ---
+
+export const RecentActivityResponseSchema = z.object({
+  type: z.enum(['state_change', 'visit']),
+  advisorName: z.string(),
+  clientName: z.string(),
+  description: z.string(),
+  createdAt: z.string().datetime(),
+});
+export type RecentActivityResponse = z.infer<typeof RecentActivityResponseSchema>;

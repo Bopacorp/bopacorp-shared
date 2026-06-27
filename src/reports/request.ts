@@ -62,7 +62,17 @@ export type ListReportExportsQuery = z.infer<typeof ListReportExportsQuerySchema
 // --- Advisor Metrics ---
 
 export const ListAdvisorMetricsQuerySchema = z.object({
+  supervisorId: UuidSchema.optional(),
   dateFrom: z.string().date().optional(),
   dateTo: z.string().date().optional(),
 });
 export type ListAdvisorMetricsQuery = z.infer<typeof ListAdvisorMetricsQuerySchema>;
+
+// --- Recent Activity ---
+
+export const ListRecentActivityQuerySchema = PaginationQuerySchema.extend({
+  advisorId: UuidSchema.optional(),
+  dateFrom: z.string().date().optional(),
+  dateTo: z.string().date().optional(),
+});
+export type ListRecentActivityQuery = z.infer<typeof ListRecentActivityQuerySchema>;
