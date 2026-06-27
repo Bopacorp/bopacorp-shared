@@ -24,6 +24,7 @@ export type UpdateSalesObjectiveRequest = z.infer<typeof UpdateSalesObjectiveReq
 export const ListSalesObjectivesQuerySchema = PaginationQuerySchema.extend({
   createdBy: UuidSchema.optional(),
   advisorId: UuidSchema.optional(),
+  supervisorId: UuidSchema.optional(),
   periodStart: z.string().date(V.DATE_INVALID).optional(),
   periodEnd: z.string().date(V.DATE_INVALID).optional(),
 });

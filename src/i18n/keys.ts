@@ -49,6 +49,8 @@ export const V = {
 
   FILE_MIN_SIZE: 'validation.file.min_size',
   FILE_MAX_SIZE: 'validation.file.max_size',
+  FILE_PDF_ONLY: 'validation.file.pdf_only',
+  REJECTION_REASON_REQUIRED: 'validation.rejection.reason_required',
 
   ADDRESS_MAX: 'validation.address.max',
 

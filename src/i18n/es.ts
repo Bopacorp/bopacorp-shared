@@ -51,6 +51,8 @@ export const es = {
 
   [V.FILE_MIN_SIZE]: 'El archivo debe pesar al menos {{min}} MB',
   [V.FILE_MAX_SIZE]: 'El archivo debe pesar menos de {{max}} MB',
+  [V.FILE_PDF_ONLY]: 'Solo se permiten archivos PDF',
+  [V.REJECTION_REASON_REQUIRED]: 'El motivo de rechazo es obligatorio',
 
   [V.ADDRESS_MAX]: 'La dirección no puede exceder {{max}} caracteres',
 

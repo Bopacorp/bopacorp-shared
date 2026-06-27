@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { V, vk } from '../i18n/keys.js';
 import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
-import { AttachmentTypeSchema } from './enums.js';
+import { AttachmentTypeSchema, MatrixApprovalDecisionSchema } from './enums.js';
 
 // --- Offer Matrices ---
 
@@ -52,3 +52,18 @@ export const ListMatrixAttachmentsQuerySchema = PaginationQuerySchema.extend({
   matrixId: UuidSchema,
 });
 export type ListMatrixAttachmentsQuery = z.infer<typeof ListMatrixAttachmentsQuerySchema>;
+
+// --- Matrix Approval (SUP) ---
+
+export const ReviewOfferMatrixRequestSchema = z.discriminatedUnion('decision', [
+  z.object({
+    decision: z.literal('approved'),
+    notes: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
+  }),
+  z.object({
+    decision: z.literal('rejected'),
+    rejectionReason: z.string().min(1, V.REJECTION_REASON_REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
+    notes: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
+  }),
+]);
+export type ReviewOfferMatrixRequest = z.infer<typeof ReviewOfferMatrixRequestSchema>;

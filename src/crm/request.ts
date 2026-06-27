@@ -66,9 +66,8 @@ export const CreateBusinessClientRequestSchema = z.object({
   activeServicesCount: z
     .number()
     .int(V.INTEGER)
-    .min(0, V.NON_NEGATIVE)
-    .default(0),
-  currentMonthlyBilling: z.number().min(0, V.NON_NEGATIVE).default(0),
+    .min(0, V.NON_NEGATIVE),
+  currentMonthlyBilling: z.number().min(0, V.NON_NEGATIVE),
   isActive: z.boolean().default(true),
 });
 export type CreateBusinessClientRequest = z.infer<typeof CreateBusinessClientRequestSchema>;
@@ -122,7 +121,7 @@ export const CreateVisitRequestSchema = z.object({
   advisorId: UuidSchema,
   visitTypeId: UuidSchema,
   visitDate: z.string().datetime(V.DATETIME_INVALID),
-  observations: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
+  observations: z.string().min(1, V.REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
   gpsLatitude: z.number().optional(),
   gpsLongitude: z.number().optional(),
   gpsAccuracy: z.number().optional(),

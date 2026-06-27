@@ -52,6 +52,8 @@ export const en: LocaleMessages = {
 
   [V.FILE_MIN_SIZE]: 'File must be at least {{min}} MB',
   [V.FILE_MAX_SIZE]: 'File must be less than {{max}} MB',
+  [V.FILE_PDF_ONLY]: 'Only PDF files are allowed',
+  [V.REJECTION_REASON_REQUIRED]: 'Rejection reason is required',
 
   [V.ADDRESS_MAX]: 'Address cannot exceed {{max}} characters',
 

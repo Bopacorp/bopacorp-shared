@@ -21,7 +21,7 @@ const lookupCreate = z.object({
 
 const lookupUpdate = z.object({
   code: z.string().min(1, V.REQUIRED).max(30, vk(V.MAX_CHARS, { max: 30 })).optional(),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })).optional(),
   description: z.string().max(255, vk(V.MAX_CHARS, { max: 255 })).optional(),
   isActive: z.boolean().optional(),
 });
@@ -114,7 +114,7 @@ export type CreateCategoryRequest = z.infer<typeof CreateCategoryRequestSchema>;
 
 export const UpdateCategoryRequestSchema = z.object({
   parentId: UuidSchema.nullable().optional(),
-  name: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
+  name: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })).optional(),
   slug: z
     .string()
     .min(1, V.REQUIRED)
@@ -232,7 +232,7 @@ export const CreateCatalogItemRequestSchema = z.object({
   segmentId: UuidSchema,
   tierId: UuidSchema,
   name: z.string().min(1, V.REQUIRED).max(200, vk(V.MAX_CHARS, { max: 200 })),
-  description: z.string().max(1000, vk(V.MAX_CHARS, { max: 1000 })).optional(),
+  description: z.string().min(1, V.REQUIRED).max(1000, vk(V.MAX_CHARS, { max: 1000 })),
   price: z.number().min(0, V.NON_NEGATIVE),
   activationCode: z.string().max(50, vk(V.MAX_CHARS, { max: 50 })).optional(),
   isActive: z.boolean().default(true),

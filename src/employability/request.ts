@@ -17,7 +17,7 @@ export const CreateCandidateRequestSchema = z.object({
   firstName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   lastName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
   email: EmailSchema,
-  phone: PhoneSchema.optional(),
+  phone: PhoneSchema,
   address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
 });
 export type CreateCandidateRequest = z.infer<typeof CreateCandidateRequestSchema>;
@@ -90,7 +90,7 @@ export const CreateCandidateResumeRequestSchema = z.object({
     .number()
     .positive(vk(V.FILE_MIN_SIZE, { min: 0 }))
     .max(50, vk(V.FILE_MAX_SIZE, { max: 50 })),
-  mimeType: z.string().min(1, V.REQUIRED).max(100, vk(V.MAX_CHARS, { max: 100 })),
+  mimeType: z.literal('application/pdf', { message: V.FILE_PDF_ONLY }),
 });
 export type CreateCandidateResumeRequest = z.infer<typeof CreateCandidateResumeRequestSchema>;
 
@@ -108,7 +108,7 @@ export const ApplyJobVacancyRequestSchema = z.object({
     firstName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
     lastName: z.string().min(1, V.REQUIRED).max(50, vk(V.MAX_CHARS, { max: 50 })),
     email: EmailSchema,
-    phone: PhoneSchema.optional(),
+    phone: PhoneSchema,
     address: z.string().max(255, vk(V.ADDRESS_MAX, { max: 255 })).optional(),
   }),
   vacancyId: UuidSchema,
