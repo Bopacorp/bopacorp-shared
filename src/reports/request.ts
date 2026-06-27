@@ -62,6 +62,7 @@ export type ListReportExportsQuery = z.infer<typeof ListReportExportsQuerySchema
 // --- Advisor Metrics ---
 
 export const ListAdvisorMetricsQuerySchema = z.object({
+  advisorId: UuidSchema.optional(),
   supervisorId: UuidSchema.optional(),
   dateFrom: z.string().date().optional(),
   dateTo: z.string().date().optional(),
