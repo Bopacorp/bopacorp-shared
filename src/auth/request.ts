@@ -102,6 +102,15 @@ export const UpdateUserRequestSchema = z.object({
 });
 export type UpdateUserRequest = z.infer<typeof UpdateUserRequestSchema>;
 
+export const UnlockUserRequestSchema = z.object({
+  reason: z
+    .string({ error: V.REQUIRED })
+    .trim()
+    .min(10, vk(V.MIN_CHARS, { min: 10 }))
+    .max(500, vk(V.MAX_CHARS, { max: 500 })),
+});
+export type UnlockUserRequest = z.infer<typeof UnlockUserRequestSchema>;
+
 export const AssignUserRolesRequestSchema = z.object({
   roleIds: z.array(UuidSchema).min(1, vk(V.MIN_ITEMS, { min: 1 })),
 });
