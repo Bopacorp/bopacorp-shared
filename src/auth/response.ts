@@ -141,6 +141,13 @@ export const UserListItemResponseSchema = z
   .merge(TimestampsSchema);
 export type UserListItemResponse = z.infer<typeof UserListItemResponseSchema>;
 
+export const UnlockUserResponseSchema = z.object({
+  id: UuidSchema,
+  unlocked: z.boolean(),
+  message: z.string(),
+});
+export type UnlockUserResponse = z.infer<typeof UnlockUserResponseSchema>;
+
 export const LockStatusResponseSchema = z.object({
   id: UuidSchema,
   isActive: z.boolean(),

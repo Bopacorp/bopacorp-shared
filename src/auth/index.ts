@@ -70,6 +70,7 @@ export type {
   ProfileResponse,
   RoleDetailResponse,
   RoleResponse,
+  UnlockUserResponse,
   UserListItemResponse,
   UserResponse,
 } from './response.js';
@@ -85,6 +86,7 @@ export {
   ProfileResponseSchema,
   RoleDetailResponseSchema,
   RoleResponseSchema,
+  UnlockUserResponseSchema,
   UserListItemResponseSchema,
   UserResponseSchema,
 } from './response.js';
