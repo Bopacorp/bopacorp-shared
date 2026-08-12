@@ -164,6 +164,7 @@ export const EmployeeListItemResponseSchema = z
     territory: z.string().nullable(),
     hiredAt: z.string().nullable(),
     isActive: z.boolean(),
+    isLocked: z.boolean().optional(),
   })
   .merge(TimestampsSchema);
 export type EmployeeListItemResponse = z.infer<typeof EmployeeListItemResponseSchema>;

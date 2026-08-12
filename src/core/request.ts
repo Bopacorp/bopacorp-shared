@@ -121,5 +121,6 @@ export const ListEmployeesQuerySchema = PaginationQuerySchema.extend({
   orgRoleCode: z.string().optional(),
   departmentId: UuidSchema.optional(),
   isActive: BooleanQuerySchema.optional(),
+  includeLockStatus: BooleanQuerySchema.optional(),
 });
 export type ListEmployeesQuery = z.infer<typeof ListEmployeesQuerySchema>;

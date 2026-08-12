@@ -60,6 +60,7 @@ export {
 } from './request.js';
 export type {
   AuthTokensResponse,
+  LockStatusResponse,
   LoginResponse,
   MeResponse,
   MessageResponse,
@@ -74,6 +75,7 @@ export type {
 } from './response.js';
 export {
   AuthTokensResponseSchema,
+  LockStatusResponseSchema,
   LoginResponseSchema,
   MeResponseSchema,
   MessageResponseSchema,
