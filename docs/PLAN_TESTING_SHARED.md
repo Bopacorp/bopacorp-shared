@@ -4,7 +4,7 @@
 **Repositorio:** `bopacorp-shared`
 **Responsabilidad:** contratos API compartidos entre `bopacorp-api`, `bopacorp-web`, `bopacorp-crm` y `bopacorp-mobile`
 **Fecha base:** 15 de agosto de 2026
-**Estado:** Fases 1, 2, 3 y 4 implementadas localmente; CI remoto pendiente de verificación; cobertura todavía informativa.
+**Estado:** Fases 1, 2, 3, 4 y 5 implementadas localmente; CI remoto pendiente de verificación; cobertura todavía informativa.
 
 ## 1. Objetivo
 
@@ -378,6 +378,26 @@ Los tests no inspeccionan bytes, MIME real, malware, storage, autorización, own
 El package conserva schemas de matrices. Por decisión funcional vigente, esta fase no debe presentarlos como evidencia de que la funcionalidad de subsidios o aprobación está implementada. Se pueden mantener smoke tests de enum, parse y exports para evitar romper consumidores mientras exista el código residual.
 
 **Criterio de salida:** los módulos públicos y administrativos tienen al menos fixtures representativos y los casos de privacidad/nullable más importantes.
+
+### Resultado de ejecución de Fase 5 — 2026-08-15
+
+- [x] Tests de requests y responses de catálogo creados en `tests/catalog/request.test.ts` y `tests/catalog/response.test.ts`.
+- [x] Tests de empleabilidad pública y administrativa creados en `tests/employability/request.test.ts` y `tests/employability/response.test.ts`.
+- [x] Tests de reportes, notificaciones e i18n creados en `tests/reports.test.ts`, `tests/notifications.test.ts` y `tests/i18n.test.ts`.
+- [x] Smoke tests residuales de matrices creados en `tests/matrices.test.ts`.
+- [x] Suite exitosa: 21 archivos y 117 tests.
+- [x] Se verificaron lookups, categorías recursivas, detalles de catálogo, condiciones, CMS, proyección pública, vacantes públicas, aplicaciones, resumes PDF, estados, métricas, exports, notificaciones, mensajes i18n y matrices residuales.
+- [x] Se verificó que `PublicCatalogItemResponseSchema` elimina campos administrativos, pero conserva `permanenceMonths` como parte del contrato público actual.
+- [x] Se verificó que `resolveValidationMessage` se consume desde `src/i18n/index.ts` y que las claves de los locales `es`/`en` permanecen alineadas.
+- [x] Se registró que el branch `approved` de `ReviewOfferMatrixRequestSchema` elimina `rejectionReason` desconocido en lugar de rechazarlo; no se modificó el schema.
+- [x] `npm run check` exitoso: Biome lint sobre 44 archivos y TypeScript sin errores.
+- [x] `npm run test:typecheck` exitoso.
+- [x] `npm run test:coverage` exitoso: 100% de statements, 91.66% de branches, 100% de functions y 100% de lines.
+- [x] `npm run build` exitoso y `git diff --check` sin errores.
+- [ ] Run remoto de GitHub Actions y artifact remoto pendientes.
+- [ ] Gate porcentual de cobertura pendiente; los valores actuales siguen siendo baseline.
+
+Los tests no ejecutan cálculos comerciales, elegibilidad laboral, envío de notificaciones, generación real de reportes ni flujo productivo de matrices. Esas garantías requieren API, frontend o integración coordinada.
 
 ### Fase 6 — Type-level, exports y compatibilidad del artifact
 
