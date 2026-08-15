@@ -50,6 +50,10 @@ npm install
 npm run build
 ```
 
+## Testing
+
+The phased testing strategy is documented in [`docs/PLAN_TESTING_SHARED.md`](docs/PLAN_TESTING_SHARED.md).
+
 ## Publish
 
 ```bash

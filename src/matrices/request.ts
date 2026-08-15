@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { V, vk } from '../i18n/keys.js';
 import { PaginationQuerySchema, UuidSchema } from '../common/primitives.js';
-import { AttachmentTypeSchema, MatrixApprovalDecisionSchema } from './enums.js';
+import { AttachmentTypeSchema } from './enums.js';
 
 // --- Offer Matrices ---
 

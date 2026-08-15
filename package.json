@@ -60,10 +60,14 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "biome check src/",
+    "lint": "biome lint src/",
     "lint:fix": "biome check --write src/",
     "format": "biome format --write src/",
-    "check": "biome check --write src/ && tsc --noEmit",
+    "check": "npm run lint && tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:typecheck": "tsc -p tsconfig.test.json --noEmit",
     "prepublishOnly": "npm run build",
     "postpublish": "npm dist-tag add @bopacorp/shared@$npm_package_version latest --registry https://npm.pkg.github.com"
   },
@@ -75,6 +79,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.0",
-    "typescript": "^6.0.3"
+    "@vitest/coverage-v8": "^4.1.10",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
   }
 }
