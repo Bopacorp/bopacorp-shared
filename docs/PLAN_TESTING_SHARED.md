@@ -4,7 +4,7 @@
 **Repositorio:** `bopacorp-shared`
 **Responsabilidad:** contratos API compartidos entre `bopacorp-api`, `bopacorp-web`, `bopacorp-crm` y `bopacorp-mobile`
 **Fecha base:** 15 de agosto de 2026
-**Estado:** Fases 1 y 2 implementadas localmente; CI remoto pendiente de verificación; cobertura todavía informativa.
+**Estado:** Fases 1, 2, 3 y 4 implementadas localmente; CI remoto pendiente de verificación; cobertura todavía informativa.
 
 ## 1. Objetivo
 
@@ -277,6 +277,24 @@ La suite del package no prueba que un usuario tenga permiso para ejecutar una op
 
 **Criterio de salida:** auth/core tienen cobertura de datos válidos, inválidos, nullables, parciales y privacidad.
 
+### Resultado de ejecución de Fase 3 — 2026-08-15
+
+- [x] Tests de enums y requests de `auth` creados en `tests/auth/enums.test.ts` y `tests/auth/request.test.ts`.
+- [x] Tests de responses de `auth` y privacidad creados en `tests/auth/response.test.ts`.
+- [x] Tests de requests y responses de `core` creados en `tests/core/request.test.ts` y `tests/core/response.test.ts`.
+- [x] Suite exitosa: 8 archivos y 60 tests.
+- [x] Se verificaron enums, autenticación, contraseñas, defaults, partial semantics, filtros, relaciones, nulabilidad, árboles recursivos y responses de organización.
+- [x] Se verificó que los campos backend-only enviados como claves desconocidas no aparecen en los responses serializados evaluados.
+- [x] Se verificó que `MeResponseSchema` no expone tokens; los tokens permanecen limitados al response de autenticación donde el contrato los define.
+- [x] `npm run check` exitoso: Biome lint sobre 44 archivos y TypeScript sin errores.
+- [x] `npm run test:typecheck` exitoso.
+- [x] `npm run test:coverage` exitoso: 95.96% de statements, 41.66% de branches, 76.92% de functions y 97.15% de lines.
+- [x] `npm run build` exitoso y `git diff --check` sin errores.
+- [ ] Run remoto de GitHub Actions y artifact remoto pendientes.
+- [ ] Gate porcentual de cobertura pendiente; los valores actuales siguen siendo baseline.
+
+Hallazgo conocido: `EmployeeResponseSchema` incluye explícitamente `deletedAt`. La prueba lo mantiene visible como excepción del contrato de privacidad; Fase 3 no modifica el schema porque su alcance es únicamente de evidencia.
+
 ### Fase 4 — CRM, documentos y contratos de archivos
 
 **Prioridad:** crítica para el flujo comercial.
@@ -301,6 +319,26 @@ La suite del package no prueba que un usuario tenga permiso para ejecutar una op
 **Límite importante:** el package no inspecciona bytes, MIME real, malware, storage ni límite físico de 50 MB. Esos casos deben probarse en API/frontend. Aquí se verifica únicamente que el request/response documentado tenga la estructura correcta.
 
 **Criterio de salida:** el flujo de payload cliente → negociación → visita → documento tiene fixtures de request y response que puedan reutilizar API y CRM.
+
+### Resultado de ejecución de Fase 4 — 2026-08-15
+
+- [x] Tests de requests y filtros CRM creados en `tests/crm/request.test.ts`.
+- [x] Tests de responses CRM, relaciones slim y campos nullable creados en `tests/crm/response.test.ts`.
+- [x] Tests de requests, estados, límites de metadata y actualización estricta creados en `tests/documents/request.test.ts`.
+- [x] Tests de responses completos/list items e historial creados en `tests/documents/response.test.ts`.
+- [x] Tests de encryption metadata y upload response creados en `tests/document-uploads.test.ts`.
+- [x] Suite exitosa: 13 archivos y 80 tests.
+- [x] Se verificaron clientes, negociaciones, visitas, GPS tipado, estados documentales, relaciones anidadas, referencias slim, historial y fronteras de archivo `0.01–50 MB`.
+- [x] Se verificó que `Update*Schema` derivado con `.partial()` conserva defaults existentes como `isActive: true`; no se modificaron schemas.
+- [x] Se verificó que los list items eliminan campos de detalle desconocidos al serializarse.
+- [x] `npm run check` exitoso: Biome lint sobre 44 archivos y TypeScript sin errores.
+- [x] `npm run test:typecheck` exitoso.
+- [x] `npm run test:coverage` exitoso: 95.96% de statements, 41.66% de branches, 76.92% de functions y 97.15% de lines.
+- [x] `npm run build` exitoso y `git diff --check` sin errores.
+- [ ] Run remoto de GitHub Actions y artifact remoto pendientes.
+- [ ] Gate porcentual de cobertura pendiente; los valores actuales siguen siendo baseline.
+
+Los tests no inspeccionan bytes, MIME real, malware, storage, autorización, ownership ni transiciones de negocio. Esas garantías requieren pruebas del API/frontend o pruebas de integración coordinadas.
 
 ### Fase 5 — Catálogo, empleabilidad, reportes, notificaciones e i18n
 
