@@ -67,7 +67,6 @@ const evidence = {
     { path: 'artifacts/release-evidence.json', exists: true },
   ],
   knownFindings: [
-    'npm pack reports extra source and documentation files; packaging cleanup remains out of scope for Phase 7.',
     'Consumer lockfile drift is reported by test:compatibility and is not changed by this gate.',
   ],
 };

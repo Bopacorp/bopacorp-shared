@@ -1,6 +1,7 @@
 {
   "name": "@bopacorp/shared",
   "version": "0.3.2",
+  "files": ["dist"],
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
