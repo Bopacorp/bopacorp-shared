@@ -25,28 +25,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint and typecheck
-        run: npm run check
+      - name: Run quality gate and generate evidence
+        run: npm run test:phase7
 
-      - name: Run tests
-        run: npm run test:run
-
-      - name: Typecheck tests
-        run: npm run test:typecheck
-
-      - name: Generate coverage
-        run: npm run test:coverage
-
-      - name: Build
-        run: npm run build
-
-      - name: Upload coverage artifact
+      - name: Upload quality artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: shared-coverage
+          name: shared-quality-evidence
           path: |
             coverage/index.html
             coverage/lcov.info
+            coverage/coverage-summary.json
+            artifacts/release-evidence.json
           if-no-files-found: warn
           retention-days: 7

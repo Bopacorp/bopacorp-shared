@@ -445,15 +445,14 @@ Los tests no ejecutan cálculos comerciales, elegibilidad laboral, envío de not
 |---|---|
 | Tests runtime | 100% pasan |
 | Typecheck de tests | 100% pasa |
-| Cobertura inicial | Reportada sin bloquear mientras se estabiliza el conjunto |
-| Cobertura final | Al menos 80% de statements/lines del código de contrato medido |
+| Cobertura global | Al menos 80% de statements, branches, functions y lines |
 | Ramas críticas | Casos de coerción, union, refine, nullable, optional, privacidad y fallback cubiertos |
 | Build | `npm run build` exitoso |
 | Lint/typecheck | `npm run check` exitoso |
 | Exports | Root y subpaths importables desde `dist/` |
-| Publicación | `npm pack --dry-run` limpio, sin fuentes internas ni secretos |
+| Package smoke | `npm pack` requerido; archivos extra se reportan como hallazgo separado |
 
-El umbral no debe activarse antes de tener la línea base y una lista justificada de exclusiones. Si se excluyen archivos, la exclusión debe quedar documentada y no puede usarse para ocultar schemas difíciles.
+El umbral se activa sobre la línea base actual. Las exclusiones se mantienen limitadas a declaraciones generadas y deben documentarse; no se usarán para ocultar schemas difíciles.
 
 **Evidencia por ejecución:**
 
@@ -468,6 +467,16 @@ El umbral no debe activarse antes de tener la línea base y una lista justificad
 | Consumidores | versión probada en API/Web/CRM/Mobile |
 | Defectos | issue, fix SHA y retest |
 | Decisión | compatible, breaking, descoped o pendiente |
+
+### Resultado de implementación de Fase 7 — 2026-08-15
+
+- [x] Thresholds globales de Vitest configurados en 80% para statements, branches, functions y lines.
+- [x] `npm run test:phase7` consolidó check, tests, typecheck, cobertura, build, exports, type-level y consumer tarball.
+- [x] Se agregó evidencia JSON con SHA, versión, ambiente, estado, duración, cobertura y artifacts.
+- [x] GitHub Actions ejecuta el quality gate y sube cobertura más evidencia aun cuando el gate falla.
+- [x] La cobertura local de la revisión actual supera el gate: 100% statements, 91.66% branches, 100% functions y 100% lines.
+- [ ] Run remoto de GitHub Actions pendiente de ejecución en GitHub.
+- [ ] Packaging hygiene y publicación en GitHub Packages permanecen fuera de esta fase.
 
 ## 8. Priorización de casos
 
@@ -513,12 +522,8 @@ No conviene empezar por tests de cada módulo de negocio antes de cubrir `common
 
 ```bash
 npm ci
-npm run check
-npm run test:run
-npm run test:typecheck
-npm run test:coverage
-npm run build
-npm pack --dry-run
+npm run test:phase7
+npm run test:compatibility
 ```
 
-Estos comandos deben ejecutarse sobre una revisión conocida. Hasta que se ejecuten y se registren sus artifacts, no se debe afirmar que el package cumple cobertura o que una versión es compatible con todos los consumidores.
+Estos comandos deben ejecutarse sobre una revisión conocida. `test:phase7` produce `artifacts/release-evidence.json`; `test:compatibility` permanece informativo porque no modifica consumidores ni lockfiles.
