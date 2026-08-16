@@ -423,6 +423,18 @@ Los tests no ejecutan cálculos comerciales, elegibilidad laboral, envío de not
 
 **Criterio de salida:** root, subpaths, declarations y artifact empaquetado pasan un smoke test de runtime y compilación.
 
+### Resultado de ejecución de Fase 6 — 2026-08-15
+
+- [x] Smoke test del root y los 12 subpaths declarados; los 13 entrypoints resuelven desde `dist/`.
+- [x] Fixture type-level válido compilado contra las declarations del package.
+- [x] Fixture type-level inválido rechazó el campo `notAContractField`.
+- [x] `npm pack --dry-run` verificó la presencia de los 26 archivos `.js`/`.d.ts` correspondientes a los entrypoints.
+- [x] Consumer temporal instalado desde el tarball; runtime, imports y typecheck exitosos.
+- [x] Inventario estático de imports y versiones de API, Web, CRM y Mobile creado en `docs/PHASE6_CONSUMER_COMPATIBILITY.md`.
+- [x] Se detectó drift en lockfiles pnpm de API (`0.2.17`), Web (`0.2.19`) y CRM (`0.2.17`); Mobile mantiene un enlace local al package.
+- [ ] Packaging hygiene pendiente: el tarball aún incluye `src/`, `tests/`, `docs/`, scripts y archivos internos; la Fase 6 lo reporta sin cambiar el manifiesto.
+- [ ] Instalación desde GitHub Packages y ejecución completa de cada consumer pendientes.
+
 ### Fase 7 — Cobertura, quality gate y evidencia de release
 
 **Objetivo:** convertir la suite en una protección permanente del contrato.

@@ -68,6 +68,11 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "test:artifact": "npm run build && node scripts/verify-package-artifact.mjs",
+    "test:typelevel": "npm run build && node scripts/verify-type-level.mjs",
+    "test:package": "npm run build && sh scripts/verify-package-tarball.sh",
+    "test:compatibility": "node scripts/check-consumer-compatibility.mjs",
+    "test:phase6": "npm run test:run && npm run test:typecheck && npm run test:artifact && npm run test:typelevel && npm run test:package && npm run test:compatibility",
     "prepublishOnly": "npm run build",
     "postpublish": "npm dist-tag add @bopacorp/shared@$npm_package_version latest --registry https://npm.pkg.github.com"
   },
