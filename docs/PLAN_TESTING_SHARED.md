@@ -471,7 +471,7 @@ El umbral se activa sobre la línea base actual. Las exclusiones se mantienen li
 ### Resultado de implementación de Fase 7 — 2026-08-15
 
 - [x] Thresholds globales de Vitest configurados en 80% para statements, branches, functions y lines.
-- [x] `npm run test:phase7` consolidó check, tests, typecheck, cobertura, build, exports, type-level y consumer tarball.
+- [x] `npm run test:quality-gate` consolidó check, tests, typecheck, cobertura, build, exports, type-level y consumer tarball.
 - [x] Se agregó evidencia JSON con SHA, versión, ambiente, estado, duración, cobertura y artifacts.
 - [x] GitHub Actions ejecuta el quality gate y sube cobertura más evidencia aun cuando el gate falla.
 - [x] La cobertura local de la revisión actual supera el gate: 100% statements, 91.66% branches, 100% functions y 100% lines.
@@ -522,8 +522,8 @@ No conviene empezar por tests de cada módulo de negocio antes de cubrir `common
 
 ```bash
 npm ci
-npm run test:phase7
+npm run test:quality-gate
 npm run test:compatibility
 ```
 
-Estos comandos deben ejecutarse sobre una revisión conocida. `test:phase7` produce `artifacts/release-evidence.json`; `test:compatibility` permanece informativo porque no modifica consumidores ni lockfiles.
+Estos comandos deben ejecutarse sobre una revisión conocida. `test:quality-gate` produce `artifacts/release-evidence.json`; `test:compatibility` permanece informativo porque no modifica consumidores ni lockfiles.

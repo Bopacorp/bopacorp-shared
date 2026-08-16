@@ -74,7 +74,7 @@
     "test:compatibility": "node scripts/check-consumer-compatibility.mjs",
     "test:phase6": "npm run test:run && npm run test:typecheck && npm run test:artifact && npm run test:typelevel && npm run test:package && npm run test:compatibility",
     "test:evidence": "node scripts/write-release-evidence.mjs",
-    "test:phase7": "sh scripts/run-phase7.sh",
+    "test:quality-gate": "sh scripts/run-quality-gate.sh",
     "prepublishOnly": "npm run build",
     "postpublish": "npm dist-tag add @bopacorp/shared@$npm_package_version latest --registry https://npm.pkg.github.com"
   },
